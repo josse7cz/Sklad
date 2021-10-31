@@ -12,11 +12,7 @@ namespace Sklad.Controllers
         {
             return View();
         }
-        public ActionResult Vypis()
-        {
-
-            return View();
-        }
+       
 
         public ActionResult About()
         {

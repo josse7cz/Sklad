@@ -1,0 +1,41 @@
+﻿@using DataAccess.Model
+@model List<Item>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nazev</th>
+            <th>Cena</th>
+            <th>Vyrobce</th>
+            <th>Mnozstvi</th>
+
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (Item i in Model)
+        {
+            <tr>
+
+                <td>@i.Id</td>
+                <td>@i.Name</td>
+                <td>@i.Price</td>
+                <td>@i.Producer</td>
+                <td>@i.Quantity</td>
+                <td><a href="@Url.Action("Detail","Items",new {id=i.Id})"><label>Detail</label></a></td>
+
+            </tr>
+
+        }
+
+
+    </tbody>
+
+
+</table> 
