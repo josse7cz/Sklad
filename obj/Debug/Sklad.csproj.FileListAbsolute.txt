@@ -67,7 +67,7 @@ D:\J\C#\Sklad\bin\roslyn\System.Numerics.Vectors.dll
 D:\J\C#\Sklad\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
 D:\J\C#\Sklad\bin\DataAccess1.dll
 D:\J\C#\Sklad\bin\DataAccess1.pdb
-D:\J\C#\Sklad\bin\EntityFramework.dll
-D:\J\C#\Sklad\bin\EntityFramework.SqlServer.dll
 D:\J\C#\Sklad\bin\EntityFramework.xml
 D:\J\C#\Sklad\bin\EntityFramework.SqlServer.xml
+D:\J\C#\Sklad\bin\EntityFramework.dll
+D:\J\C#\Sklad\bin\EntityFramework.SqlServer.dll
