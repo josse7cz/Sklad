@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataAccess1.Dao;
+using DataAccess1.Model;
 
 namespace Sklad.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {
+         {
+            ItemCategoryDao iDao = new ItemCategoryDao();
+            IList<ItemCategory> categories = iDao.GetAll();
+
             return View();
         }
        

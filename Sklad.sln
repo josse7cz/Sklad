@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sklad", "Sklad.csproj", "{C8000340-8B07-47A1-81BC-D2C277351470}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\DataAccess1\DataAccess.csproj", "{04AF1DA6-E12F-492A-9D38-885E5A2F063C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess1", "..\DataAccess1\DataAccess1.csproj", "{04AF1DA6-E12F-492A-9D38-885E5A2F063C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

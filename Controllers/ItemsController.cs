@@ -1,4 +1,5 @@
-﻿using DataAccess.Model;
+﻿using DataAccess1.Model;
+using DataAccess.Model;
 using Sklad.Class;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,7 @@ namespace Sklad.Controllers
         // GET: Polozky
         public ActionResult Index()
         {
-            Items.GetDataFromDb();
-
-
-
-
+           
             return View(Items.GetFakeList);
         }
 
