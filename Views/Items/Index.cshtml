@@ -1,5 +1,5 @@
 ﻿@using DataAccess.Model
-@model List<Item>
+@model IList<Item>
 @{
     ViewBag.Title = "Index";
 }
@@ -15,6 +15,7 @@
             <th>Cena</th>
             <th>Vyrobce</th>
             <th>Mnozstvi</th>
+            <th>Akce</th>
 
         </tr>
     </thead>
@@ -23,21 +24,25 @@
     <tbody>
         @foreach (Item i in Model)
         {
-        <tr>
-            <td>@if (!string.IsNullOrEmpty(i.ImageName))
-            {
-            <img src="@Url.Content("~/uploads/item/" + i.ImageName)" />
-            }
-            </td>
-            <td>@i.Id</td>
-            <td>@i.Name</td>
-            <td>@i.Price</td>
-            <td>@i.Producer</td>
-            <td>@i.Quantity</td>
-            <td><a href="@Url.Action("Detail","Items",new {id=i.Id})"><label>Detail</label></a></td>
-            <td><a href="@Url.Action("Delete","Items",new {id=i.Id})"><label>Smazat</label></a></td>
-
-        </tr>
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(i.ImageName))
+                    {
+                        <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
+                            <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
+                        </a>
+                    }
+                </td>
+                <td>@i.Id</td>
+                <td>@i.Name</td>
+                <td>@i.Price</td>
+                <td>@i.Producer</td>
+                <td>@i.Quantity</td>
+                <td><a href="@Url.Action("Edit","Items",new {id=i.Id},null)"><label>Edit</label></a></td>
+                <td><a href="@Url.Action("Detail","Items",new {id=i.Id})"><label>Det ail</label></a></td>
+                @*<td><a href="@Url.Action("Delete","Items",new {id=i.Id},new{onclick = "return confirm('Opravdu smazat?"+i.Name+"');"})>   <label>Smazat</label>  </a></td>*@
+                <td>@Html.ActionLink("Delete","Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })</td>
+            </tr>
 
         }
 
@@ -45,4 +50,4 @@
     </tbody>
 
 
-</table> 
+</table>

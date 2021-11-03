@@ -12,8 +12,16 @@ namespace Sklad.Controllers
     {
         public ActionResult Index()
          {
-            ItemCategoryDao iDao = new ItemCategoryDao();
-            IList<ItemCategory> categories = iDao.GetAll();
+            //ItemCategoryDao iDao = new ItemCategoryDao();
+            //IList<ItemCategory> categories = iDao.GetAll();
+           
+
+            //ItemCategory ic = new ItemCategory();
+            //ic.CategoryName = "šlapadlo";
+            //ic.CategoryDescription = "vlastní pohon";
+            //iDao.Create(ic);
+           
+
 
             return View();
         }
