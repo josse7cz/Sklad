@@ -5,13 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DataAccess1.Dao;
 
 namespace Sklad.Controllers
 {
+
+    [Authorize]
     public class ItemsController : Controller
     {
         // GET: Polozky
@@ -20,6 +21,12 @@ namespace Sklad.Controllers
             ItemDao itemDao = new ItemDao();
             IList<Item> items = itemDao.GetAll();
 
+
+
+            UserDao userDao = new UserDao();
+            User user = userDao.GetByLogin(User.Identity.Name);
+
+            ViewBag.user = user.Name;
             return View(items);
         }
 
@@ -39,7 +46,7 @@ namespace Sklad.Controllers
             return View();
 
         }
-
+        [Authorize(Roles = "seller, admin")]
         public ActionResult Create()
         {
             ItemCategoryDao iDao = new ItemCategoryDao();
@@ -47,14 +54,8 @@ namespace Sklad.Controllers
             ViewBag.Categories = categories;
             return View();
         }
-        [HttpPost]
-        public ActionResult Add1(string name, int price, string producer, int quantity, int yearproduct)
-        {
-            Item i = new Item() { Name = name, Price = price, Producer = producer, Quantity = quantity, YearProduct = yearproduct, Id = Items.Counter };
-            Items.GetFakeList.Add(i);
 
-            return RedirectToAction("Index");
-        }
+
         [HttpPost]
         public ActionResult Add(Item item, HttpPostedFileBase picture, int categoryId)
         {
@@ -115,6 +116,7 @@ namespace Sklad.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "seller, admin")]
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -130,7 +132,7 @@ namespace Sklad.Controllers
 
             return View(i);
         }
-
+        [Authorize(Roles = "seller, admin")]
         [HttpPost]
         public ActionResult Update(Item item, HttpPostedFileBase picture, int categoryId)
         {
@@ -196,7 +198,7 @@ namespace Sklad.Controllers
 
         }
 
-
+        [Authorize(Roles = "seller, admin")]
         public ActionResult Delete(int id)
         {
 
@@ -209,9 +211,6 @@ namespace Sklad.Controllers
                 {
                     System.IO.File.Delete(Server.MapPath("~/Uploads/Item/" + item.ImageName));
                 }
-
-
-
 
                 itemDao.Delete(item);
 

@@ -3,8 +3,15 @@
 @{
     ViewBag.Title = "Index";
 }
+<p>
+   
+    <h1>Vítejte: @ViewBag.user</h1>
 
+
+
+</p>
 <a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat položku</a>
+
 <div class="clearfix"></div>
 <table class="table table-bordered table-hover">
     <thead>
@@ -41,7 +48,7 @@
                 <td><a href="@Url.Action("Edit","Items",new {id=i.Id},null)"><label>Edit</label></a></td>
                 <td><a href="@Url.Action("Detail","Items",new {id=i.Id})"><label>Det ail</label></a></td>
                 @*<td><a href="@Url.Action("Delete","Items",new {id=i.Id},new{onclick = "return confirm('Opravdu smazat?"+i.Name+"');"})>   <label>Smazat</label>  </a></td>*@
-                <td>@Html.ActionLink("Delete","Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })</td>
+                <td>@Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })</td>
             </tr>
 
         }

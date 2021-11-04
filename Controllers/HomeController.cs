@@ -8,24 +8,20 @@ using DataAccess1.Model;
 
 namespace Sklad.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
-         {
-            //ItemCategoryDao iDao = new ItemCategoryDao();
-            //IList<ItemCategory> categories = iDao.GetAll();
-           
+        {
+            UserDao userDao = new UserDao();
+            User user = userDao.GetByLogin(User.Identity.Name);
 
-            //ItemCategory ic = new ItemCategory();
-            //ic.CategoryName = "šlapadlo";
-            //ic.CategoryDescription = "vlastní pohon";
-            //iDao.Create(ic);
-           
+            ViewBag.user = user.Name;
 
 
             return View();
         }
-       
+
 
         public ActionResult About()
         {
