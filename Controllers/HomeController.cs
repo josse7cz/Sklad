@@ -8,7 +8,7 @@ using DataAccess1.Model;
 
 namespace Sklad.Controllers
 {
-    [Authorize]
+    
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -16,7 +16,8 @@ namespace Sklad.Controllers
             UserDao userDao = new UserDao();
             User user = userDao.GetByLogin(User.Identity.Name);
 
-            ViewBag.user = user.Name;
+      
+            
 
 
             return View();
