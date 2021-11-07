@@ -2,25 +2,18 @@
 @model IList<Item>
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <p>
 
-    @if (ViewBag.user != null)
-    {
+    <h1>Vítejte: @ViewBag.user</h1>
 
-        <h1>
-            Vítejte: @ViewBag.user
-        </h1>
 
-    }
-    else
-    {<h1>
-            Vítejte
-        </h1>
-    }
 
 </p>
-@*<a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat položku</a>*@
+<a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat položku</a>
+
+
 @using (Html.BeginForm("Search", "Items"))
 {
     <p>
@@ -28,6 +21,8 @@
         <input type="submit" value="Hledat" />
     </p>
 }
+
+
 <div class="clearfix"></div>
 <table class="table table-bordered table-hover">
     <thead>
@@ -63,8 +58,8 @@
                 <td>@i.Quantity</td>
                 <td>
                     @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, null)
-                    @* @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)*@
-                    @* @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })*@
+                    @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)
+                    @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })
                 </td>
             </tr>
 
@@ -75,9 +70,10 @@
 
 
 </table>
+
 @if (ViewBag.Pages != null)
 {
-    <ul class="pagination">
+    <ul class="pagination-lg">
         @for (int i = 1; i <= ViewBag.Pages; i++)
         {
             <li class="@(ViewBag.CurrentPage==i ? "active":"")"><a href="@Url.Action("Index","Items",new {page=i })">@i</a></li>

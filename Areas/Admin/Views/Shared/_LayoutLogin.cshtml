@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin pohled</title>
+    
+    
+</head>
+<body>
+    <p>
+        @*@Html.ActionLink("Prodejna", "Index", "Items", null, new { @class = "navbar-brand" })*@
+
+        @*new {area=""} pro navigaci mezi oblastmi pridat do action linku*@
+    </p>
+    
+<div>
+
+    @RenderBody()
+</div>
+</body>
+</html>

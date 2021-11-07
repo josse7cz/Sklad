@@ -1,0 +1,23 @@
+﻿@Model.DataAccess1.Model
+@{
+    ViewBag.Title = "Index";
+    Layout = "null";
+}
+
+@if (Model.Role.Identifikator == "customer")
+{
+    <li a href="@Url.Action("Index","Items")">Položky</li>
+}
+
+
+
+@if (Model.Role.Identifikator == "seller")
+{
+    <li a href="@Url.Action("Index","Items")">Položky</li>
+}
+@if (Model.Role.Identifikator == "admin")
+{
+    <li a href="@Url.Action("Index","Items")">Položky</li>
+
+}
+

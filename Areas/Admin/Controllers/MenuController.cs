@@ -1,0 +1,27 @@
+﻿using DataAccess1.Dao;
+using DataAccess1.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace Sklad.Areas.Admin.Controllers
+{
+    [Authorize]
+    public class MenuController : Controller
+    {
+        // GET: Admin/Menu
+        [ChildActionOnly]
+        public ActionResult Index()
+        {
+
+            UserDao userDao = new UserDao();
+            User user = userDao.GetByLogin(User.Identity.Name);
+
+             
+
+            return View(user);
+        }
+    }
+}

@@ -1,33 +1,20 @@
 ﻿@using DataAccess1.Model
 @model IList<Item>
+
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+   // Layout = null;
+
 }
 <p>
-
     @if (ViewBag.user != null)
-    {
-
-        <h1>
-            Vítejte: @ViewBag.user
-        </h1>
-
-    }
-    else
-    {<h1>
-            Vítejte
-        </h1>
-    }
-
+    {<h1>Vítejte: @ViewBag.user</h1>}
 </p>
 @*<a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat položku</a>*@
-@using (Html.BeginForm("Search", "Items"))
-{
-    <p>
-        Find by name: @Html.TextBox("searchStr")
-        <input type="submit" value="Hledat" />
-    </p>
-}
+
+
+
 <div class="clearfix"></div>
 <table class="table table-bordered table-hover">
     <thead>
@@ -73,11 +60,14 @@
 
     </tbody>
 
-
 </table>
+
+
+<div class="clearfix"></div>
+
 @if (ViewBag.Pages != null)
 {
-    <ul class="pagination">
+    <ul class=pagination>
         @for (int i = 1; i <= ViewBag.Pages; i++)
         {
             <li class="@(ViewBag.CurrentPage==i ? "active":"")"><a href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
@@ -85,3 +75,25 @@
     </ul>
 
 }
+
+
+<div class="card mb-4">
+    <div class="card-header">Categories</div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <ul class="list-unstyled mb-0">
+                    @if (ViewBag.Categories != null)
+                        {
+                            foreach (ItemCategory i in ViewBag.Categories)
+                            {
+
+                                <li><a href="@Url.Action("Category","Items",new {id=i.Id })">@i.CategoryName</a></li>
+                            }
+                        }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
