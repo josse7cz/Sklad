@@ -12,7 +12,7 @@ namespace Sklad.Areas.Admin.Controllers
     public class MenuController : Controller
     {
         // GET: Admin/Menu
-        [ChildActionOnly]
+        [ChildActionOnly]//muze byt zavolano pouze zevnitr aplikace (ne prews prikazovy radek)
         public ActionResult Index()
         {
 

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -25,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>4.3</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -129,6 +131,7 @@
     <Compile Include="Areas\Admin\Controllers\ItemsController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReceiptController.cs" />
     <Compile Include="Class\ImageHelper.cs" />
     <Compile Include="Class\SellMembershipProvider.cs" />
     <Compile Include="Class\SellRoleProvider.cs" />
@@ -180,9 +183,117 @@
     <Content Include="Areas\Admin\Views\Shared\_LayoutEmpty.cshtml" />
     <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Items\Customer.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutWithout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutLTE.cshtml" />
+    <Content Include="Scripts\css\custom.css" />
+    <Content Include="Scripts\css\print.css" />
+    <Content Include="Scripts\dist\css\adminlte.css" />
+    <Content Include="Scripts\dist\css\adminlte.min.css" />
+    <Content Include="Scripts\dist\css\alt\adminlte.components.css" />
+    <Content Include="Scripts\dist\css\alt\adminlte.components.min.css" />
+    <Content Include="Scripts\dist\css\alt\adminlte.core.css" />
+    <Content Include="Scripts\dist\css\alt\adminlte.core.min.css" />
+    <Content Include="Scripts\dist\css\alt\adminlte.extra-components.css" />
+    <Content Include="Scripts\dist\css\alt\adminlte.extra-components.min.css" />
+    <Content Include="Scripts\dist\css\alt\adminlte.pages.css" />
+    <Content Include="Scripts\dist\css\alt\adminlte.pages.min.css" />
+    <Content Include="Scripts\dist\css\alt\adminlte.plugins.css" />
+    <Content Include="Scripts\dist\css\alt\adminlte.plugins.min.css" />
+    <Content Include="Scripts\dist\css\_all-skins.min.css" />
+    <Content Include="Scripts\dist\img\AdminLTELogo.png" />
+    <Content Include="Scripts\dist\img\avatar.png" />
+    <Content Include="Scripts\dist\img\avatar2.png" />
+    <Content Include="Scripts\dist\img\avatar3.png" />
+    <Content Include="Scripts\dist\img\avatar4.png" />
+    <Content Include="Scripts\dist\img\avatar5.png" />
+    <Content Include="Scripts\dist\img\boxed-bg.jpg" />
+    <Content Include="Scripts\dist\img\boxed-bg.png" />
+    <Content Include="Scripts\dist\img\credit\american-express.png" />
+    <Content Include="Scripts\dist\img\credit\cirrus.png" />
+    <Content Include="Scripts\dist\img\credit\mastercard.png" />
+    <Content Include="Scripts\dist\img\credit\paypal.png" />
+    <Content Include="Scripts\dist\img\credit\paypal2.png" />
+    <Content Include="Scripts\dist\img\credit\visa.png" />
+    <Content Include="Scripts\dist\img\default-150x150.png" />
+    <Content Include="Scripts\dist\img\icons.png" />
+    <Content Include="Scripts\dist\img\photo1.png" />
+    <Content Include="Scripts\dist\img\photo2.png" />
+    <Content Include="Scripts\dist\img\photo3.jpg" />
+    <Content Include="Scripts\dist\img\photo4.jpg" />
+    <Content Include="Scripts\dist\img\prod-1.jpg" />
+    <Content Include="Scripts\dist\img\prod-2.jpg" />
+    <Content Include="Scripts\dist\img\prod-3.jpg" />
+    <Content Include="Scripts\dist\img\prod-4.jpg" />
+    <Content Include="Scripts\dist\img\prod-5.jpg" />
+    <Content Include="Scripts\dist\img\user1-128x128.jpg" />
+    <Content Include="Scripts\dist\img\user2-160x160.jpg" />
+    <Content Include="Scripts\dist\img\user3-128x128.jpg" />
+    <Content Include="Scripts\dist\img\user4-128x128.jpg" />
+    <Content Include="Scripts\dist\img\user5-128x128.jpg" />
+    <Content Include="Scripts\dist\img\user6-128x128.jpg" />
+    <Content Include="Scripts\dist\img\user7-128x128.jpg" />
+    <Content Include="Scripts\dist\img\user8-128x128.jpg" />
+    <Content Include="Scripts\dist\js\AdminLTE.css" />
+    <Content Include="Scripts\dist\js\adminlte.js" />
+    <Content Include="Scripts\dist\js\adminlte.min.js" />
+    <Content Include="Scripts\dist\js\demo.js" />
+    <Content Include="Scripts\dist\js\pages\dashboard.js" />
+    <Content Include="Scripts\dist\js\pages\dashboard2.js" />
+    <Content Include="Scripts\dist\js\pages\dashboard3.js" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-brands-400.eot" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-brands-400.ttf" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-brands-400.woff" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-regular-400.eot" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-regular-400.ttf" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-regular-400.woff" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-regular-400.woff2" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-solid-900.eot" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-solid-900.ttf" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-solid-900.woff" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <Content Include="Scripts\icheck-bootstrap\LICENSE" />
+    <Content Include="Scripts\dist\js\.eslintrc.json" />
+    <Content Include="Areas\Admin\Views\Receipt\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Receipt\Create.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\css\signin.css" />
     <Content Include="Scripts\css\styles.css" />
+    <Content Include="Scripts\css\styles1.css" />
+    <Content Include="Scripts\fontawesome-free\css\all.css" />
+    <Content Include="Scripts\fontawesome-free\css\all.min.css" />
+    <Content Include="Scripts\fontawesome-free\css\brands.css" />
+    <Content Include="Scripts\fontawesome-free\css\brands.min.css" />
+    <Content Include="Scripts\fontawesome-free\css\fontawesome.css" />
+    <Content Include="Scripts\fontawesome-free\css\fontawesome.min.css" />
+    <Content Include="Scripts\fontawesome-free\css\regular.css" />
+    <Content Include="Scripts\fontawesome-free\css\regular.min.css" />
+    <Content Include="Scripts\fontawesome-free\css\solid.css" />
+    <Content Include="Scripts\fontawesome-free\css\solid.min.css" />
+    <Content Include="Scripts\fontawesome-free\css\svg-with-js.css" />
+    <Content Include="Scripts\fontawesome-free\css\svg-with-js.min.css" />
+    <Content Include="Scripts\fontawesome-free\css\v4-shims.css" />
+    <Content Include="Scripts\fontawesome-free\css\v4-shims.min.css" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-brands-400.svg" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-regular-400.svg" />
+    <Content Include="Scripts\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <Content Include="Scripts\icheck-bootstrap\icheck-bootstrap.css" />
+    <Content Include="Scripts\icheck-bootstrap\icheck-bootstrap.min.css" />
+    <Content Include="Scripts\img\dashboard\AdminLTELogo.png" />
+    <Content Include="Scripts\img\dashboard\default-150x150.png" />
+    <Content Include="Scripts\img\dashboard\user1-128x128.jpg" />
+    <Content Include="Scripts\img\dashboard\user2-160x160.jpg" />
+    <Content Include="Scripts\img\dashboard\user3-128x128.jpg" />
+    <Content Include="Scripts\img\dashboard\user8-128x128.jpg" />
+    <Content Include="Scripts\img\favicon.ico" />
+    <Content Include="Scripts\img\portfolio\cabin.png" />
+    <Content Include="Scripts\img\portfolio\cake.png" />
+    <Content Include="Scripts\img\portfolio\circus.png" />
+    <Content Include="Scripts\img\portfolio\game.png" />
+    <Content Include="Scripts\img\portfolio\profile.png" />
+    <Content Include="Scripts\img\portfolio\safe.png" />
+    <Content Include="Scripts\img\portfolio\submarine.png" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
@@ -192,7 +303,11 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\scripts1.js" />
     <Content Include="Scripts\js\scripts.js" />
+    <Content Include="Scripts\mail\contact_me.js" />
+    <Content Include="Scripts\mail\contact_me.php" />
+    <Content Include="Scripts\mail\jqBootstrapValidation.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -215,6 +330,7 @@
     <Content Include="Views\Items\Edit.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutEmpty.cshtml" />
+    <Content Include="Views\Shared\_LayoutIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -255,11 +371,15 @@
       <Name>DataAccess1</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

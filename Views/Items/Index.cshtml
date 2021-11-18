@@ -2,6 +2,9 @@
 @model IList<Item>
 @{
     ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_LayoutStore.cshtml";+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 <p>
 
@@ -21,13 +24,14 @@
 
 </p>
 @*<a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat položku</a>*@
-@using (Html.BeginForm("Search", "Items"))
+@*@using (Html.BeginForm("Search", "Items"))
 {
     <p>
         Find by name: @Html.TextBox("searchStr")
         <input type="submit" value="Hledat" />
     </p>
-}
+}*@
+
 <div class="clearfix"></div>
 <table class="table table-bordered table-hover">
     <thead>
@@ -80,7 +84,7 @@
     <ul class="pagination">
         @for (int i = 1; i <= ViewBag.Pages; i++)
         {
-            <li class="@(ViewBag.CurrentPage==i ? "active":"")"><a href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
+        <li class=" page-item @(ViewBag.CurrentPage==i ? "active":"")"><a class="page-link" href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
         }
     </ul>
 

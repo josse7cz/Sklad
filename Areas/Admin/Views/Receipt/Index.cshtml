@@ -1,0 +1,66 @@
+﻿
+@using DataAccess1.Model
+@model IList<Receipt>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<p>
+
+    <h1>Přehled prodaných</h1>
+
+
+
+</p>
+<a href="@Url.Action("Create","Receipt")" class="btn btn-primary pull-right">Prodat polozku</a>
+
+
+
+<div class="clearfix"></div>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Polozka</th>
+            <th>Cena</th>
+            <th>Kupujici</th>
+
+
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (Receipt r in Model)
+        {
+            <tr>
+                <td>@r.Id</td>
+                <td>@r.Item.Name</td>
+                <td>@r.Item.Price</td>
+                <td>@r.UserName.Name</td>
+
+                @*<td>
+                        @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, null)
+                        @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)
+                        @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })
+                    </td>*@
+            </tr>
+
+        }
+
+
+    </tbody>
+
+
+</table>
+
+@*@if (ViewBag.Pages != null)
+    {
+        <ul class="pagination-lg">
+            @for (int i = 1; i <= ViewBag.Pages; i++)
+            {
+                <li class="@(ViewBag.CurrentPage==i ? "active":"")"><a href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
+            }
+        </ul>
+
+    }*@

@@ -73,10 +73,10 @@
 
 @if (ViewBag.Pages != null)
 {
-    <ul class="pagination-lg">
+    <ul class="pagination">
         @for (int i = 1; i <= ViewBag.Pages; i++)
         {
-            <li class="@(ViewBag.CurrentPage==i ? "active":"")"><a href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
+        <li class=" page-item @(ViewBag.CurrentPage==i ? "active":"")"><a class="page-link" href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
         }
     </ul>
 

@@ -21,7 +21,7 @@ namespace Sklad.Areas.Admin.Controllers
             if (Membership.ValidateUser(login, password))
             {
                 FormsAuthentication.SetAuthCookie(login, false);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Items");
             }
             TempData["message-alert"] = "Nepodarilo se prihlasit.";
             return RedirectToAction("Index", "Login");
@@ -32,7 +32,8 @@ namespace Sklad.Areas.Admin.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            return RedirectToAction("Index", "Login");
+            //return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Home");
 
         }
 

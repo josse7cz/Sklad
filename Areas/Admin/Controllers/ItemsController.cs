@@ -17,13 +17,13 @@ namespace Sklad.Areas.Admin.Controllers
         // GET: Polozky
         public ActionResult Index(int? page)
         {
-            int itemsOnPage=2;//pocet polozeek na strance
-            int pg =page.HasValue ? page.Value :1;//pokud prijde hodnota bude pouzita a kdyz ne nastavi se na 1; TERNARNI DOTAZ
+            int itemsOnPage = 2;//pocet polozeek na strance
+            int pg = page.HasValue ? page.Value : 1;//pokud prijde hodnota bude pouzita a kdyz ne nastavi se na 1; TERNARNI DOTAZ
             int totalItems;//celokvy pocet polozek
             ItemDao itemDao = new ItemDao();
-            IList<Item> items = itemDao.GetPagedItems(itemsOnPage,pg,out totalItems);
+            IList<Item> items = itemDao.GetPagedItems(itemsOnPage, pg, out totalItems);
 
-            ViewBag.Pages=Math.Ceiling((double)totalItems/(double) itemsOnPage);  //vypocet poctu stranek + ceiling= zaokrouhlení nahoru
+            ViewBag.Pages = Math.Ceiling((double)totalItems / (double)itemsOnPage);  //vypocet poctu stranek + ceiling= zaokrouhlení nahoru
             ViewBag.Categories = new ItemCategoryDao().GetAll();//předat kategorie do pohledu
 
             UserDao userDao = new UserDao();
@@ -31,7 +31,7 @@ namespace Sklad.Areas.Admin.Controllers
 
             ViewBag.user = user.Name;
 
-            if(user.Role.Identificator=="customer")
+            if (user.Role.Identificator == "customer")
             {
                 return View("Customer", items);
             }
@@ -45,7 +45,7 @@ namespace Sklad.Areas.Admin.Controllers
         public ActionResult Search(string searchStr)
         {
             ItemDao iDao = new ItemDao();
-            IList<Item> items= iDao.SearchItems(searchStr);
+            IList<Item> items = iDao.SearchItems(searchStr);
 
             UserDao userDao = new UserDao();
             User user = userDao.GetByLogin(User.Identity.Name);
@@ -54,21 +54,17 @@ namespace Sklad.Areas.Admin.Controllers
             {
                 return View("Customer", items);
             }
-             return View(items);
+            return View(items);
         }
+
+
         public ActionResult Category(int id)
         {
             IList<Item> items = new ItemDao().FilterItemsByCategory(id);
             ViewBag.Categories = new ItemCategoryDao().GetAll();
 
-            return View("Customer",items);
+            return View("Customer", items);
         }
-
-
-
-
-
-
         public ActionResult Detail(int id)
         {
 
@@ -85,6 +81,7 @@ namespace Sklad.Areas.Admin.Controllers
             return View();
 
         }
+
         [Authorize(Roles = "seller, admin")]
         public ActionResult Create()
         {
@@ -229,7 +226,7 @@ namespace Sklad.Areas.Admin.Controllers
             }
             catch (Exception e)
             {
-                TempData["message-allert"] = "Položka nebyla editována z důvodu: "+e+"." ;
+                TempData["message-allert"] = "Položka nebyla editována z důvodu: " + e + ".";
                 throw;
             }
 
