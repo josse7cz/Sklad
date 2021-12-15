@@ -78,3 +78,4 @@ D:\J\C#\Sklad\bin\NHibernate.xml
 D:\J\C#\Sklad\bin\Remotion.Linq.xml
 D:\J\C#\Sklad\bin\Remotion.Linq.EagerFetching.xml
 D:\J\C#\Sklad\bin\Iesi.Collections.xml
+D:\J\C#\Sklad\obj\Debug\Sklad.csproj.CopyComplete
