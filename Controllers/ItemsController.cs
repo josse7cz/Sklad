@@ -14,6 +14,15 @@ namespace Sklad.Controllers
    // [Authorize]
     public class ItemsController : Controller
     {
+        IItemsService _itemsService;
+        public ItemsController()
+        {
+        }
+        public ItemsController(IItemsService itemsService)
+        {
+            _itemsService = itemsService;
+        }
+
         // GET: Polozky
         public ActionResult Index()
         {
@@ -46,8 +55,19 @@ namespace Sklad.Controllers
             {
                 return View(i);
             }
-            return View();
 
+            var data = _itemsService.GetMyItems();
+
+
+            return View(data);
+
+            
+
+        }
+
+        public interface IItemsService
+        {
+            IEnumerable<Item> GetMyItems();
         }
         //[Authorize(Roles = "seller, admin")]
         //public ActionResult Create()
@@ -228,7 +248,7 @@ namespace Sklad.Controllers
 
         //    return RedirectToAction("Index");
 
-       // }
+        // }
 
     }
 }
