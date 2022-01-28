@@ -11,8 +11,8 @@
 
     <property name="connection.driver_class">NHibernate.Driver.Sql2008ClientDriver</property>
 
-    <property name="connection.connection_string">Server=COOLMASTER2020\SQLEXPRESS;initial catalog=SkladDB;Integrated Security=SSPI </property>
-
+   <!--<property name="connection.connection_string">Server=COOLMASTER2020\SQLEXPRESS;initial catalog=SkladDB;Integrated Security=SSPI </property>-->
+<property name="connection.connection_string">Server=ASUSSTRIXNOTEBO\SQLEXPRESS;initial catalog=SkladDB;Integrated Security=SSPI </property>
     <!--//SqlConnection connection = new SqlConnection(@"Data Source=COOLMASTER2020\SQLEXPRESS;Initial Catalog=SkladDB;integrated security=SSPI;");-->
 
 

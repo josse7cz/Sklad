@@ -44,12 +44,18 @@
         "projectUniqueName": "D:\\J\\C#\\Sklad\\TestProject\\TestProject.csproj",
         "projectName": "TestProject",
         "projectPath": "D:\\J\\C#\\Sklad\\TestProject\\TestProject.csproj",
-        "packagesPath": "C:\\Users\\CoolMaster\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\josef\\.nuget\\packages\\",
         "outputPath": "D:\\J\\C#\\Sklad\\TestProject\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\CoolMaster\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\josef\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -78,6 +84,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Docker.DotNet": {
+              "target": "Package",
+              "version": "[3.125.5, )"
+            },
             "Microsoft.AspNet.Mvc": {
               "target": "Package",
               "version": "[5.2.7, )"

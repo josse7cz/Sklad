@@ -25,7 +25,7 @@ namespace Sklad.Areas.Admin.Controllers
 
         public ActionResult GetPrice(int id)
         {
-            ItemDao iDao = new ItemDao();
+            IDaoBase iDao = new IDaoBase();
 
             if (id >= 0)
             {
@@ -41,7 +41,7 @@ namespace Sklad.Areas.Admin.Controllers
         public ActionResult Create(Receipt receipt, int itemId, int userId)
         {
 
-            ItemDao iDao = new ItemDao();
+            IDaoBase iDao = new IDaoBase();
             IList<Item> items = iDao.GetAll();
             ViewBag.Items = items;
 

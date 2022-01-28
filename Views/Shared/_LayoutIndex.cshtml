@@ -113,30 +113,27 @@
                 <div class="col-lg-12 mx-auto">
                     <!-- To configure the contact form email address, go to Webconfig and update the email address and smtp data.-->
 
-
-
                     @using (Html.BeginForm("Contact", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "contact-form", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
-                        //<h4>Send your comments.</h4>
-                        //<hr />
+                        
                         <div class="form-group">
                             @Html.LabelFor(m => m.SenderName, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 @Html.TextBoxFor(m => m.SenderName, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.SenderName)
                             </div>
                         </div>
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
                             @Html.LabelFor(m => m.SenderEmail, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 @Html.TextBoxFor(m => m.SenderEmail, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.SenderEmail)
                             </div>
                         </div>
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
                             @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.Message)
 

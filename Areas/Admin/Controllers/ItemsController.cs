@@ -17,10 +17,10 @@ namespace Sklad.Areas.Admin.Controllers
         // GET: Polozky
         public ActionResult Index(int? page)
         {
-            int itemsOnPage = 2;//pocet polozeek na strance
+            int itemsOnPage = 3;//pocet polozeek na strance
             int pg = page.HasValue ? page.Value : 1;//pokud prijde hodnota bude pouzita a kdyz ne nastavi se na 1; TERNARNI DOTAZ
             int totalItems;//celokvy pocet polozek
-            ItemDao itemDao = new ItemDao();
+            IDaoBase itemDao = new IDaoBase();
             IList<Item> items = itemDao.GetPagedItems(itemsOnPage, pg, out totalItems);
 
             ViewBag.Pages = Math.Ceiling((double)totalItems / (double)itemsOnPage);  //vypocet poctu stranek + ceiling= zaokrouhlení nahoru
@@ -36,15 +36,12 @@ namespace Sklad.Areas.Admin.Controllers
                 return View("Customer", items);
             }
 
-
-
             return View(items);
-
         }
 
         public ActionResult Search(string searchStr)
         {
-            ItemDao iDao = new ItemDao();
+            IDaoBase iDao = new IDaoBase();
             IList<Item> items = iDao.SearchItems(searchStr);
 
             UserDao userDao = new UserDao();
@@ -60,7 +57,7 @@ namespace Sklad.Areas.Admin.Controllers
 
         public ActionResult Category(int id)
         {
-            IList<Item> items = new ItemDao().FilterItemsByCategory(id);
+            IList<Item> items = new IDaoBase().FilterItemsByCategory(id);
             ViewBag.Categories = new ItemCategoryDao().GetAll();
 
             return View("Customer", items);
@@ -68,9 +65,7 @@ namespace Sklad.Areas.Admin.Controllers
         public ActionResult Detail(int id)
         {
 
-            //Item i = (from Item item in Items.GetFakeList where item.Id == id select item).FirstOrDefault();
-
-            ItemDao itemDao = new ItemDao();
+            IDaoBase itemDao = new IDaoBase();
             Item i = itemDao.GetById(id);
 
 
@@ -138,7 +133,7 @@ namespace Sklad.Areas.Admin.Controllers
                 ItemCategory itemCategory = itemCategoryDao.GetById(categoryId);
                 item.Category = itemCategory;
 
-                ItemDao iDao = new ItemDao();
+                IDaoBase iDao = new IDaoBase();
                 iDao.Create(item);
 
                 TempData["message-success"] = "Položka byla přidána.";
@@ -157,7 +152,7 @@ namespace Sklad.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
 
-            ItemDao itemDao = new ItemDao();
+            IDaoBase itemDao = new IDaoBase();
             ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
 
             Item i = itemDao.GetById(id);
@@ -174,7 +169,7 @@ namespace Sklad.Areas.Admin.Controllers
         {
             try
             {
-                ItemDao itemDao = new ItemDao();
+                IDaoBase itemDao = new IDaoBase();
                 ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
                 ItemCategory itemCategory = itemCategoryDao.GetById(categoryId);
                 item.Category = itemCategory;
@@ -206,18 +201,12 @@ namespace Sklad.Areas.Admin.Controllers
 
                         else
                         {
-
                             System.IO.File.Delete(Server.MapPath("~/Uploads/Item/" + imageName));
 
                             item.ImageName = imageName;
-
                         }
-
-
                     }
-
                 }
-
 
                 itemDao.Update(item);
 
@@ -240,7 +229,7 @@ namespace Sklad.Areas.Admin.Controllers
 
             try
             {
-                ItemDao itemDao = new ItemDao();
+                IDaoBase itemDao = new IDaoBase();
                 Item item = itemDao.GetById(id);
 
                 if (item.ImageName != null)

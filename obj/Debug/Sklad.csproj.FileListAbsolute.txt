@@ -79,3 +79,12 @@ D:\J\C#\Sklad\bin\Remotion.Linq.xml
 D:\J\C#\Sklad\bin\Remotion.Linq.EagerFetching.xml
 D:\J\C#\Sklad\bin\Iesi.Collections.xml
 D:\J\C#\Sklad\obj\Debug\Sklad.csproj.CopyComplete
+D:\J\C#\Sklad\bin\Docker.DotNet.dll
+D:\J\C#\Sklad\bin\System.Buffers.dll
+D:\J\C#\Sklad\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\J\C#\Sklad\bin\System.Threading.Tasks.Extensions.dll
+D:\J\C#\Sklad\bin\DataAccess1.dll.config
+D:\J\C#\Sklad\bin\Docker.DotNet.pdb
+D:\J\C#\Sklad\bin\System.Buffers.xml
+D:\J\C#\Sklad\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\J\C#\Sklad\bin\System.Threading.Tasks.Extensions.xml

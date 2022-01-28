@@ -14,69 +14,65 @@
 <a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat položku</a>
 
 
-@*@using (Html.BeginForm("Search", "Items"))
+@if (Model != null && Model.Count() != 0)
 {
-    <p>
-        Find by name: @Html.TextBox("searchStr")
-        <input type="submit" value="Hledat" />
-    </p>
-}*@
-
-
-<div class="clearfix"></div>
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Obrázek</th>
-            <th>Id</th>
-            <th>Nazev</th>
-            <th>Cena</th>
-            <th>Vyrobce</th>
-            <th>Mnozstvi</th>
-            <th>Akce</th>
-
-        </tr>
-    </thead>
-
-
-    <tbody>
-        @foreach (Item i in Model)
-        {
+    <div class="clearfix"></div>
+    <table class="table table-bordered table-hover">
+        <thead>
             <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(i.ImageName))
-                    {
-                        <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
-                            <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
-                        </a>
-                    }
-                </td>
-                <td>@i.Id</td>
-                <td>@i.Name</td>
-                <td>@i.Price</td>
-                <td>@i.Producer</td>
-                <td>@i.Quantity</td>
-                <td>
-                    @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, null)
-                    @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)
-                    @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })
-                </td>
+                <th>Obrázek</th>
+                <th>Id</th>
+                <th>Nazev</th>
+                <th>Cena</th>
+                <th>Vyrobce</th>
+                <th>Mnozstvi</th>
+                <th>Akce</th>
+
             </tr>
+        </thead>
 
-        }
+        <tbody>
+            @foreach (Item i in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(i.ImageName))
+                        {
+                            <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
+                                <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
+                            </a>
+                        }
+                    </td>
+                    <td>@i.Id</td>
+                    <td>@i.Name</td>
+                    <td>@i.Price</td>
+                    <td>@i.Producer</td>
+                    <td>@i.Quantity</td>
+                    <td>
+                        @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, null)
+                        @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)
+                        @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })
+                    </td>
+                </tr>
 
+            }
 
-    </tbody>
+        </tbody>
 
+    </table>
+}
+else
+{
+    <h1>Nenašla se data k zobrazení</h1>
+}
 
-</table>
 
 @if (ViewBag.Pages != null)
 {
     <ul class="pagination">
         @for (int i = 1; i <= ViewBag.Pages; i++)
         {
-        <li class=" page-item @(ViewBag.CurrentPage==i ? "active":"")"><a class="page-link" href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
+            <li class=" page-item @(ViewBag.CurrentPage==i ? "active":"")"><a class="page-link" href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
         }
     </ul>
 
