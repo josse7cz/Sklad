@@ -43,58 +43,53 @@
         </ul>
     </div>
 </div>
-@if (Model != null && Model.Count() != 0)
-{
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Obrázek</th>
+            <th scope="col">Id</th>
+            <th scope="col">Nazev</th>
+            <th scope="col">Cena</th>
+            <th scope="col">Vyrobce</th>
+            <th scope="col">Mnozstvi</th>
+            <th scope="col">Akce</th>
+
+        </tr>
+    </thead>
 
 
-    <table class="table table-bordered">
-        <thead>
+    <tbody>
+        @foreach (Item i in Model)
+        {
             <tr>
-                <th scope="col">Obrázek</th>
-                <th scope="col">Id</th>
-                <th scope="col">Nazev</th>
-                <th scope="col">Cena</th>
-                <th scope="col">Vyrobce</th>
-                <th scope="col">Mnozstvi</th>
-                <th scope="col">Akce</th>
-
+                <td>
+                    @if (!string.IsNullOrEmpty(i.ImageName))
+                    {
+                        <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
+                            <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
+                        </a>
+                    }
+                </td>
+                <td>@i.Id</td>
+                <td>@i.Name</td>
+                <td>@i.Price</td>
+                <td>@i.Producer</td>
+                <td>@i.Quantity</td>
+                <td>
+                    @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, new { @class = "btn btn-primary btn-large" })
+                    @* @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)*@
+                    @* @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })*@
+                </td>
             </tr>
-        </thead>
+
+        }
 
 
-        <tbody>
-            @foreach (Item i in Model)
-            {
-                <tr>
-                    <td>
-                        @if (!string.IsNullOrEmpty(i.ImageName))
-                        {
-                            <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
-                                <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
-                            </a>
-                        }
-                    </td>
-                    <td>@i.Id</td>
-                    <td>@i.Name</td>
-                    <td>@i.Price</td>
-                    <td>@i.Producer</td>
-                    <td>@i.Quantity</td>
-                    <td>
-                        @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, new { @class = "btn btn-primary btn-large" })
-                    </td>
-                </tr>
+    </tbody>
 
-            }
+</table>
 
-
-        </tbody>
-
-    </table>
-}
-else
-{
-    <h1>Nenalezena data pro danou kategorii!</h1>
-}
 
 <div class="clearfix"></div>
 <nav aria-label="Page navigation example">
