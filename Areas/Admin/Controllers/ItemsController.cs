@@ -2,7 +2,9 @@
 using DataAccess1.Model;
 using Sklad.Class;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -14,17 +16,21 @@ namespace Sklad.Areas.Admin.Controllers
     [Authorize]
     public class ItemsController : Controller
     {
+        ItemDao itemDao = new ItemDao();
+        ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
+        List<Result> result = new List<Result>();
         // GET: Polozky
         public ActionResult Index(int? page)
         {
-            int itemsOnPage = 2;//pocet polozeek na strance
+            int itemsOnPage = 5;//pocet polozeek na strance
             int pg = page.HasValue ? page.Value : 1;//pokud prijde hodnota bude pouzita a kdyz ne nastavi se na 1; TERNARNI DOTAZ
             int totalItems;//celokvy pocet polozek
-            ItemDao itemDao = new ItemDao();
-            IList<Item> items = itemDao.GetPagedItems(itemsOnPage, pg, out totalItems);
 
+            IList<Item> items = itemDao.GetPagedItems(itemsOnPage, pg, out totalItems);
             ViewBag.Pages = Math.Ceiling((double)totalItems / (double)itemsOnPage);  //vypocet poctu stranek + ceiling= zaokrouhlení nahoru
-            ViewBag.Categories = new ItemCategoryDao().GetAll();//předat kategorie do pohledu
+                                                                                   
+            ViewBag.Result = GetResult();
+
 
             UserDao userDao = new UserDao();
             User user = userDao.GetByLogin(User.Identity.Name);
@@ -35,12 +41,28 @@ namespace Sklad.Areas.Admin.Controllers
             {
                 return View("Customer", items);
             }
-
-
-
             return View(items);
 
         }
+
+        //pocitani item by category
+        public IEnumerable<Result> GetResult()
+        {
+            IList<ItemCategory> itemCategories = itemCategoryDao.GetAll();
+
+
+            for (int i = 1; i <= itemCategories.Count; i++)
+            {
+                int id = itemCategoryDao.GetById(i).Id;
+                String a = itemCategoryDao.GetById(i).CategoryName;
+                int b = itemDao.FilterItemsByCategory(i).Count;
+                result.Add(new Result(id, a, b));
+
+            }
+            ViewBag.Result = result;
+            return result;
+        }
+
 
         public ActionResult Search(string searchStr)
         {
@@ -57,22 +79,33 @@ namespace Sklad.Areas.Admin.Controllers
             return View(items);
         }
 
-
         public ActionResult Category(int id)
         {
             IList<Item> items = new ItemDao().FilterItemsByCategory(id);
-            ViewBag.Categories = new ItemCategoryDao().GetAll();
 
+           // ViewBag.Categories = new ItemCategoryDao().GetAll();
+            ViewBag.Result = GetResult();
+            ViewBag.Sum = CategoryCount(id);
             return View("Customer", items);
         }
+
+        public int CategoryCount(int id)
+        {
+            int count = 0;
+            IList<Item> items = new ItemDao().FilterItemsByCategory(id);
+            //ViewBag.Count = new ItemCategoryDao().GetAll();
+
+            count = items.Count;
+            ViewBag.Count = count;
+            return count;
+        }
+
+
         public ActionResult Detail(int id)
         {
 
-            //Item i = (from Item item in Items.GetFakeList where item.Id == id select item).FirstOrDefault();
-
             ItemDao itemDao = new ItemDao();
             Item i = itemDao.GetById(id);
-
 
             if (i.Name != null)
             {
@@ -260,5 +293,11 @@ namespace Sklad.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Test()
+        {
+            return View();
+        }
+
     }
 }

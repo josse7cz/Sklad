@@ -25,70 +25,107 @@
     </p>
 }
 
+
+
+
 <div class="card mb-6">
     <div class="card-header">Categories</div>
     <div class="card-body">
-
         <ul class="list-group list-group-horizontal">
 
 
-            @if (ViewBag.Categories != null)
-            {
-                foreach (ItemCategory i in ViewBag.Categories)
+            @*@if (ViewBag.Categories != null)
                 {
+                    foreach (ItemCategory i in ViewBag.Categories)
+                    {
+                        <li class="list-group-item"><a href="@Url.Action("Category", "Items", new { id = i.Id })" style="text-decoration:none">@i.CategoryName @ViewBag.Sum </a> </li>
 
-                    <li class="list-group-item"><a href="@Url.Action("Category","Items",new {id=i.Id })" style="text-decoration:none">@i.CategoryName</a></li>
+                        //<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none"></a> </li>
+                        //<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none">@ViewBag.Sum</a></li>
+                    }
+                }*@
+
+            @if (ViewBag.Result != null)
+            {
+                foreach (Result result in ViewBag.Result)
+                {
+                    <li class="list-group-item"><a href="@Url.Action("Category", "Items", new { id = result.Id })" style="text-decoration:none">@result.Name (@result.Count)</a></li>
                 }
             }
+
+
+
+
+
         </ul>
     </div>
 </div>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th scope="col">Obrázek</th>
-            <th scope="col">Id</th>
-            <th scope="col">Nazev</th>
-            <th scope="col">Cena</th>
-            <th scope="col">Vyrobce</th>
-            <th scope="col">Mnozstvi</th>
-            <th scope="col">Akce</th>
 
-        </tr>
-    </thead>
+<!--dodelat layout pro telefon -->
+@if (Model != null && Model.Count() != 0)
+{
+    <div class="card mb-1">
+        <div class="card-header">Items</div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Obrázek</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nazev</th>
+                        <th scope="col">Cena</th>
+                        <th scope="col">Vyrobce</th>
+                        <th scope="col">Mnozstvi</th>
+                        <th scope="col">Akce</th>
+                        <th scope="col">Kategorie</th>
 
 
-    <tbody>
-        @foreach (Item i in Model)
-        {
-            <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(i.ImageName))
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    @foreach (Item i in Model)
                     {
-                        <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
-                            <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
-                        </a>
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(i.ImageName))
+                                {
+                                    <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
+                                        <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
+                                    </a>
+                                }
+                            </td>
+                            <td>@i.Id</td>
+                            <td>@i.Name</td>
+                            <td>@i.Price</td>
+                            <td>@i.Producer</td>
+                            <td>@i.Quantity</td>
+                            <td>@i.Category.CategoryName</td>
+
+
+                            <td>
+                                @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, new { @class = "btn btn-primary btn-large" })
+                                @* @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)*@
+                                @* @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })*@
+                            </td>
+                        </tr>
+
                     }
-                </td>
-                <td>@i.Id</td>
-                <td>@i.Name</td>
-                <td>@i.Price</td>
-                <td>@i.Producer</td>
-                <td>@i.Quantity</td>
-                <td>
-                    @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, new { @class = "btn btn-primary btn-large" })
-                    @* @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)*@
-                    @* @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })*@
-                </td>
-            </tr>
-
-        }
 
 
-    </tbody>
+                </tbody>
 
-</table>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+
+    <h1>Nenašla se žádná data k zobrazení</h1>
+}
 
 
 <div class="clearfix"></div>

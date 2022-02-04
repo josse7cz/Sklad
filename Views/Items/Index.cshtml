@@ -1,5 +1,6 @@
 ﻿@using DataAccess1.Model
 @model IList<Item>
+
 @{
     ViewBag.Title = "Index";
     //Layout = "~/Views/Shared/_LayoutStore.cshtml";+
@@ -25,12 +26,46 @@
 </p>
 @*<a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat položku</a>*@
 @*@using (Html.BeginForm("Search", "Items"))
-{
-    <p>
-        Find by name: @Html.TextBox("searchStr")
-        <input type="submit" value="Hledat" />
-    </p>
-}*@
+    {
+        <p>
+            Find by name: @Html.TextBox("searchStr")
+            <input type="submit" value="Hledat" />
+        </p>
+    }*@
+
+
+<div class="card mb-6">
+    <div class="card-header">Categories</div>
+    <div class="card-body">
+        <ul class="list-group list-group-horizontal">
+
+
+            @*@if (ViewBag.Categories != null)
+                {
+
+                    foreach (ItemCategory i in ViewBag.Categories)
+
+                    {
+                        <li class="list-group-item"><a href="@Url.Action("Category", "Items", new { id = i.Id })" style="text-decoration:none">@i.CategoryName</a> </li>
+
+                        //<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none"></a> </li>
+                        //<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none">@ViewBag.Sum</a></li>
+                    }
+                }*@
+
+            @if (ViewBag.Result != null)
+            {
+                foreach (Result result in ViewBag.Result)
+                {
+                    <li class="list-group-item">@result.Name (@result.Count)</li>
+                }
+            }
+
+        </ul>
+    </div>
+</div>
+
+
 
 <div class="clearfix"></div>
 <table class="table table-bordered table-hover">
@@ -43,7 +78,6 @@
             <th>Vyrobce</th>
             <th>Mnozstvi</th>
             <th>Akce</th>
-
         </tr>
     </thead>
 
@@ -61,7 +95,7 @@
                     }
                 </td>
                 <td>@i.Id</td>
-                <td>@i.Name</td>
+                <td>@i.Name;</td>
                 <td>@i.Price</td>
                 <td>@i.Producer</td>
                 <td>@i.Quantity</td>
@@ -79,12 +113,21 @@
 
 
 </table>
+
+
+
+@*//<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none"></a> </li>
+    //<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none">@ViewBag.Sum</a></li>*@
+
+
+
+
 @if (ViewBag.Pages != null)
 {
     <ul class="pagination">
         @for (int i = 1; i <= ViewBag.Pages; i++)
         {
-        <li class=" page-item @(ViewBag.CurrentPage==i ? "active":"")"><a class="page-link" href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
+            <li class=" page-item @(ViewBag.CurrentPage==i ? "active":"")"><a class="page-link" href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
         }
     </ul>
 

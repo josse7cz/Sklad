@@ -10,9 +10,22 @@ namespace TestProject
 {
     public class Tests
     {
+
         [SetUp]
         public void Setup()
         {
+        }
+
+
+        [Test]
+        public void Index()
+        {
+            // Arrange
+            HomeController controller = new HomeController();
+            // Act
+            ViewResult result = controller.Index() as ViewResult;
+            // Assert
+            Assert.IsNotNull(result);
         }
 
         [Test]
@@ -20,8 +33,8 @@ namespace TestProject
         {
             Assert.Pass();
         }
-        
-       [Test]
+
+        [Test]
         public void TestDetailsView()
         {
             var controller = new ItemsController();
@@ -31,7 +44,7 @@ namespace TestProject
         [Test]
         public void DummyTest()
         {
-            var itemList = new List<Item>() { new Item() { Id = 1011,Description="dasa"} };
+            var itemList = new List<Item>() { new Item() { Id = 1011, Description = "dasa" } };
             var sessionMock = new Mock<ISession>();
             var queryMock = new Mock<IQuery>();
             var transactionMock = new Mock<ITransaction>();
