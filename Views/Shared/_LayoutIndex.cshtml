@@ -3,16 +3,14 @@
     Layout = null;
 }
 
-
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>@ViewData["Title"] - eSell_Prodejna</title>
+    <meta name="author" content="Josef" />
+    <title>@ViewData["Title"] - Car rent</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="@Url.Content("~/Scripts/img/favicon.ico")" />
     <!-- Font Awesome icons (free version)-->
@@ -30,70 +28,33 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">eStore Aplikace</a>
+
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Autopůjčovna</a>
             <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-2 rounded js-scroll-trigger" href="#contact">+420720152370</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Kontakty</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="@Url.Action("Index","Items",new {area="Admin"})">Přihlášení</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="@Url.Action("Index","Items")">Dashboard</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="@Url.Action("Index","Items")">Přehled aut</a></li>
                 </ul>
-
             </div>
         </div>
     </nav>
 
-
     <!-- Masthead-->
-    <header class="masthead bg-primary text-white text-center" id="avatar">
-        <div class="container">
-            <!-- Contact Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"></h2>
-            <!-- Icon Divider-->
-            <div class="divider-custom divider-light">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
-            <!-- Contact Section Form-->
+    <header class="masthead-heading" id="avatar">
 
-            <h1 div class="masthead-heading text-uppercase mb-0">
-                @RenderBody()
-            </h1>
-
-        </div>
         <div class="container d-flex align-items-center flex-column">
 
-
-            <!-- Masthead Avatar Image-->
-            <img class="masthead-avatar mb-5" src="@Url.Content("~/Scripts/img/portfolio/profile.png")" alt="nákupní taška" />
-            <!-- Masthead Heading-->
-            <h1 class="masthead-heading text-uppercase mb-0">Nastartujte svůj podnik</h1>
-            <!-- Icon Divider-->
-            <div class="divider-custom divider-light">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
-            <!-- Masthead Subheading-->
-            <p class="masthead-subheading font-weight-light mb-0">Obchod - Služby - Evidence</p>
+            <!-- Masthead Avatar Image masthead-avatar mb-12-->
+            <img class="masthead-heading" src="@Url.Content("~/Scripts/img/portfolio/843.png")" alt="fotka auta" />
         </div>
-
     </header>
-    <!-- About Section-->
-    <section class="page-section bg-primary text-white mb-0" id="about">
-        <div class="container">
-
-            <!-- About Section Content-->
-            <div class="row">
-                <div class="col-lg-4 ml-auto"><p class="lead">Poskytujeme řešení prodeje a evidence produktů.</p></div>
-                <div class="col-lg-4 mr-auto"><p class="lead">Můžete si u nás založit svůj sklad a prostřednictvím něj pak dále prodávat či nabízet služby.</p></div>
-            </div>
-        </div>
-    </section>
+    @RenderBody()
     <!-- Contact Section-->
     <section class="page-section" id="contact">
         <div class="container">
@@ -106,37 +67,33 @@
                 <div class="divider-custom-line"></div>
             </div>
 
-
-
             <!-- Contact Section Form-->
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-lg-12 mx-auto">
                     <!-- To configure the contact form email address, go to Webconfig and update the email address and smtp data.-->
-
 
 
                     @using (Html.BeginForm("Contact", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "contact-form", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
-                        //<h4>Send your comments.</h4>
-                        //<hr />
-                        <div class="form-group">
+
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
                             @Html.LabelFor(m => m.SenderName, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 @Html.TextBoxFor(m => m.SenderName, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.SenderName)
                             </div>
                         </div>
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
                             @Html.LabelFor(m => m.SenderEmail, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 @Html.TextBoxFor(m => m.SenderEmail, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.SenderEmail)
                             </div>
                         </div>
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
                             @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.Message)
 
@@ -148,50 +105,7 @@
 
                             <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">Odeslat</button>
                         </div>
-
-
-                        @*<div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">Odeslat</button>
-                                    </div>
-                                </div>
-                            </div>*@
                     }
-
-
-
-
-                    @*<form asp-action="Index" asp-controller="Contact" method="post">
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                    <label>Name</label>
-                                    <input class="form-control" asp-for="Name" id="name" type="text" placeholder="Jméno" required="required" data-validation-required-message="Prosím, zadejte své jméno." />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-
-
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                    <label>Email Address</label>
-                                    <input class="form-control" asp-for="Email" id="email" type="email" placeholder="Emailová adresa" required="required" data-validation-required-message="Prosím zadejte svou emailovou adresu." />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-
-
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                    <label>Message</label>
-                                    <textarea class="form-control" asp-for="Message" id="message" rows="5" placeholder="Zpráva" required="required" data-validation-required-message="Zde zadejte svou zprávu."></textarea>
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <br />
-                            <div id="success"></div>
-                            <div class="form-group"><button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">Odeslat</button></div>
-                        </form>*@
                 </div>
             </div>
         </div>
@@ -222,7 +136,8 @@
                     <h4 class="text-uppercase mb-4">O nás</h4>
                     <p class="lead mb-0">
                         Tato šablona byla použita na základě licence, MIT licensed Bootstrap theme created by
-                        <a href="http://startbootstrap.com">Start App</a>
+                        <a href="http://startbootstrap.com"> </a>
+                        &copy; @DateTime.Now.Year; Josef Janda for UHK
 
                     </p>
                 </div>
@@ -230,7 +145,7 @@
             <div class="row">
                 <div class="container">
                     <div align="center">
-                        &copy; 2021 - eSell_core - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
                     </div>
                 </div>
             </div>

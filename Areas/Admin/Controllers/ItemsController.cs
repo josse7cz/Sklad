@@ -19,6 +19,7 @@ namespace Sklad.Areas.Admin.Controllers
         ItemDao itemDao = new ItemDao();
         ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
         List<Result> result = new List<Result>();
+        UserDao userDao = new UserDao();
         // GET: Polozky
         public ActionResult Index(int? page)
         {
@@ -28,13 +29,8 @@ namespace Sklad.Areas.Admin.Controllers
 
             IList<Item> items = itemDao.GetPagedItems(itemsOnPage, pg, out totalItems);
             ViewBag.Pages = Math.Ceiling((double)totalItems / (double)itemsOnPage);  //vypocet poctu stranek + ceiling= zaokrouhlení nahoru
-                                                                                   
             ViewBag.Result = GetResult();
-
-
-            UserDao userDao = new UserDao();
             User user = userDao.GetByLogin(User.Identity.Name);
-
             ViewBag.user = user.Name;
 
             if (user.Role.Identificator == "customer")
@@ -42,14 +38,12 @@ namespace Sklad.Areas.Admin.Controllers
                 return View("Customer", items);
             }
             return View(items);
-
         }
 
         //pocitani item by category
         public IEnumerable<Result> GetResult()
         {
             IList<ItemCategory> itemCategories = itemCategoryDao.GetAll();
-
 
             for (int i = 1; i <= itemCategories.Count; i++)
             {
@@ -62,7 +56,6 @@ namespace Sklad.Areas.Admin.Controllers
             ViewBag.Result = result;
             return result;
         }
-
 
         public ActionResult Search(string searchStr)
         {
@@ -82,29 +75,24 @@ namespace Sklad.Areas.Admin.Controllers
         public ActionResult Category(int id)
         {
             IList<Item> items = new ItemDao().FilterItemsByCategory(id);
-
-           // ViewBag.Categories = new ItemCategoryDao().GetAll();
+            // ViewBag.Categories = new ItemCategoryDao().GetAll();
             ViewBag.Result = GetResult();
-            ViewBag.Sum = CategoryCount(id);
+            // ViewBag.Sum = CategoryCount(id);
             return View("Customer", items);
         }
 
-        public int CategoryCount(int id)
-        {
-            int count = 0;
-            IList<Item> items = new ItemDao().FilterItemsByCategory(id);
-            //ViewBag.Count = new ItemCategoryDao().GetAll();
-
-            count = items.Count;
-            ViewBag.Count = count;
-            return count;
-        }
-
-
+        //public int CategoryCount(int id)
+        //{
+        //    int count = 0;
+        //    IList<Item> items = new ItemDao().FilterItemsByCategory(id);
+        //    //ViewBag.Count = new ItemCategoryDao().GetAll();
+        //    count = items.Count;
+        //    ViewBag.Count = count;
+        //    return count;
+        //}
         public ActionResult Detail(int id)
         {
-
-            ItemDao itemDao = new ItemDao();
+            //ItemDao itemDao = new ItemDao();
             Item i = itemDao.GetById(id);
 
             if (i.Name != null)
@@ -112,18 +100,15 @@ namespace Sklad.Areas.Admin.Controllers
                 return View(i);
             }
             return View();
-
         }
 
         [Authorize(Roles = "seller, admin")]
         public ActionResult Create()
         {
-            ItemCategoryDao iDao = new ItemCategoryDao();
-            IList<ItemCategory> categories = iDao.GetAll();
+            IList<ItemCategory> categories = itemCategoryDao.GetAll();
             ViewBag.Categories = categories;
             return View();
         }
-
 
         [HttpPost]
         public ActionResult Add(Item item, HttpPostedFileBase picture, int categoryId)
@@ -132,10 +117,8 @@ namespace Sklad.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
 
-
                 if (picture != null)
                 {
-
 
                     if (picture.ContentType == "image/jpeg" || picture.ContentType == "image/png")
                     {
@@ -150,10 +133,8 @@ namespace Sklad.Areas.Admin.Controllers
                             Guid guid = Guid.NewGuid();
                             string imageName = guid.ToString() + ".jpg";
                             b.Save(Server.MapPath("~/Uploads/Item/" + imageName), ImageFormat.Jpeg);
-
                             smallImage.Dispose();
                             b.Dispose();
-
                             item.ImageName = imageName;
 
                         }
@@ -161,18 +142,15 @@ namespace Sklad.Areas.Admin.Controllers
                         {
                             picture.SaveAs(Server.MapPath("~/Uploads/Item/" + picture.FileName));
                         }
-
-
                     }
-
                 }
 
-                ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
+                //ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
                 ItemCategory itemCategory = itemCategoryDao.GetById(categoryId);
                 item.Category = itemCategory;
 
-                ItemDao iDao = new ItemDao();
-                iDao.Create(item);
+                //  ItemDao iDao = new ItemDao();
+                itemDao.Create(item);
 
                 TempData["message-success"] = "Položka byla přidána.";
             }
@@ -190,14 +168,10 @@ namespace Sklad.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
 
-            ItemDao itemDao = new ItemDao();
-            ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
-
+            //ItemDao itemDao = new ItemDao();
+            //  ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
             Item i = itemDao.GetById(id);
             ViewBag.Categories = itemCategoryDao.GetAll();
-
-
-
 
             return View(i);
         }
@@ -207,8 +181,8 @@ namespace Sklad.Areas.Admin.Controllers
         {
             try
             {
-                ItemDao itemDao = new ItemDao();
-                ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
+                //ItemDao itemDao = new ItemDao();
+                //ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
                 ItemCategory itemCategory = itemCategoryDao.GetById(categoryId);
                 item.Category = itemCategory;
 
@@ -223,10 +197,8 @@ namespace Sklad.Areas.Admin.Controllers
                         Guid guid = Guid.NewGuid();
                         string imageName = guid.ToString() + ".jpg";
 
-
                         if (image.Width > 200 || image.Height > 200)
                         {
-
                             Image smallImage = ImageHelper.ScaleImage(image, 200, 200);
                             Bitmap b = new Bitmap(smallImage);
 
@@ -245,13 +217,8 @@ namespace Sklad.Areas.Admin.Controllers
                             item.ImageName = imageName;
 
                         }
-
-
                     }
-
                 }
-
-
                 itemDao.Update(item);
 
                 TempData["message-success"] = "Položka " + item.Name + " byla editována.";
@@ -273,7 +240,7 @@ namespace Sklad.Areas.Admin.Controllers
 
             try
             {
-                ItemDao itemDao = new ItemDao();
+                // ItemDao itemDao = new ItemDao();
                 Item item = itemDao.GetById(id);
 
                 if (item.ImageName != null)

@@ -4,7 +4,8 @@
 @{
     ViewBag.Title = "Index";
     //Layout = "~/Views/Shared/_LayoutStore.cshtml";+
-    Layout = "~/Views/Shared/_LayoutWithout.cshtml";
+    // Layout = "~/Views/Shared/_LayoutWithout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 <p>
@@ -19,39 +20,16 @@
     }
     else
     {<h1>
-            Vítejte
+            Vítejte!
         </h1>
+        <h4>Níže naleznete položky pro výběr. Pro více možností se prosím přihlašte, případně nás kontaktujte zde.</h4>
     }
-
 </p>
-@*<a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat položku</a>*@
-@*@using (Html.BeginForm("Search", "Items"))
-    {
-        <p>
-            Find by name: @Html.TextBox("searchStr")
-            <input type="submit" value="Hledat" />
-        </p>
-    }*@
 
-
-<div class="card mb-6">
-    <div class="card-header">Categories</div>
+<div class="card mb-12">
+    <div class="card-header">Kategorie</div>
     <div class="card-body">
-        <ul class="list-group list-group-horizontal">
-
-
-            @*@if (ViewBag.Categories != null)
-                {
-
-                    foreach (ItemCategory i in ViewBag.Categories)
-
-                    {
-                        <li class="list-group-item"><a href="@Url.Action("Category", "Items", new { id = i.Id })" style="text-decoration:none">@i.CategoryName</a> </li>
-
-                        //<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none"></a> </li>
-                        //<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none">@ViewBag.Sum</a></li>
-                    }
-                }*@
+        <ul class="list-group list-group-horizontal-sm">
 
             @if (ViewBag.Result != null)
             {
@@ -66,60 +44,58 @@
 </div>
 
 
-
 <div class="clearfix"></div>
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Obrázek</th>
-            <th>Id</th>
-            <th>Nazev</th>
-            <th>Cena</th>
-            <th>Vyrobce</th>
-            <th>Mnozstvi</th>
-            <th>Akce</th>
-        </tr>
-    </thead>
+@if (Model != null && Model.Count() != 0)
+{
+    <div class="card mb-12">
+        <div class="card-header">Položky</div>
+        <div class="card-body">
+            <table class="tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+                <thead>
+                    <tr>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Název</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3">Obrázek</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Vyrobce</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Cena</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Kategorie</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5">Mnozstvi</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="6">Akce</th>
+                    </tr>
+                </thead>
 
-
-    <tbody>
-        @foreach (Item i in Model)
-        {
-            <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(i.ImageName))
+                <tbody>
+                    @foreach (Item i in Model)
                     {
-                        <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
-                            <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
-                        </a>
+                        <tr>
+                            <td class="title">@i.Name</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(i.ImageName))
+                                {
+                                    <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
+                                        <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
+                                    </a>
+                                }
+                            </td>
+                            <td>@i.Producer</td>
+                            <td>@i.Price</td>
+                            <td>@i.Category.CategoryName</td>
+                            <td>@i.Quantity</td>
+                            <td>
+                                @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, new { @class = "btn btn-primary btn-small" })
+                            </td>
+                        </tr>
+
                     }
-                </td>
-                <td>@i.Id</td>
-                <td>@i.Name;</td>
-                <td>@i.Price</td>
-                <td>@i.Producer</td>
-                <td>@i.Quantity</td>
-                <td>
-                    @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, null)
-                    @* @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)*@
-                    @* @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })*@
-                </td>
-            </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
 
-        }
-
-
-    </tbody>
-
-
-</table>
-
-
-
-@*//<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none"></a> </li>
-    //<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none">@ViewBag.Sum</a></li>*@
-
-
+    <h1>Nenašla se žádná data k zobrazení</h1>
+}
 
 
 @if (ViewBag.Pages != null)

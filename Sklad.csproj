@@ -190,7 +190,6 @@
     <Content Include="Areas\Admin\Views\Items\Customer.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutIndex.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutWithout.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_LayoutLTE.cshtml" />
     <Content Include="Scripts\css\custom.css" />
     <Content Include="Scripts\css\print.css" />
     <Content Include="Scripts\dist\css\adminlte.css" />
@@ -246,6 +245,11 @@
     <Content Include="Scripts\dist\js\pages\dashboard.js" />
     <Content Include="Scripts\dist\js\pages\dashboard2.js" />
     <Content Include="Scripts\dist\js\pages\dashboard3.js" />
+    <Content Include="Scripts\dist\stackonly\demo.css" />
+    <Content Include="Scripts\dist\stackonly\tablesaw.stackonly.css" />
+    <Content Include="Scripts\tablesaw-init.js" />
+    <Content Include="Scripts\tablesaw.stackonly.jquery.js" />
+    <Content Include="Scripts\tablesaw.stackonly.js" />
     <Content Include="Scripts\fontawesome-free\webfonts\fa-brands-400.eot" />
     <Content Include="Scripts\fontawesome-free\webfonts\fa-brands-400.ttf" />
     <Content Include="Scripts\fontawesome-free\webfonts\fa-brands-400.woff" />
@@ -262,6 +266,7 @@
     <Content Include="Scripts\dist\js\.eslintrc.json" />
     <Content Include="Areas\Admin\Views\Receipt\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Receipt\Create.cshtml" />
+    <Content Include="Scripts\dist\stackonly\tablesaw.stackonly.scss" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\css\signin.css" />
     <Content Include="Scripts\css\styles.css" />

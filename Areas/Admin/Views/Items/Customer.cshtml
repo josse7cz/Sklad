@@ -4,15 +4,12 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    // Layout = null;
 
 }
 <p>
     @if (ViewBag.user != null)
     {<h1>Vítejte: @ViewBag.user</h1>}
 </p>
-@*<a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat položku</a>*@
-
 
 
 <div class="clearfix"></div>
@@ -25,25 +22,10 @@
     </p>
 }
 
-
-
-
-<div class="card mb-6">
-    <div class="card-header">Categories</div>
+<div class="card mb-12">
+    <div class="card-header">Kategorie</div>
     <div class="card-body">
-        <ul class="list-group list-group-horizontal">
-
-
-            @*@if (ViewBag.Categories != null)
-                {
-                    foreach (ItemCategory i in ViewBag.Categories)
-                    {
-                        <li class="list-group-item"><a href="@Url.Action("Category", "Items", new { id = i.Id })" style="text-decoration:none">@i.CategoryName @ViewBag.Sum </a> </li>
-
-                        //<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none"></a> </li>
-                        //<li class="list-group-item"><a href="@Url.Action("CategoryCount","Items",new {id=i.Id})" style="text-decoration:none">@ViewBag.Sum</a></li>
-                    }
-                }*@
+        <ul class="list-group list-group-horizontal-sm">
 
             @if (ViewBag.Result != null)
             {
@@ -53,33 +35,27 @@
                 }
             }
 
-
-
-
-
         </ul>
     </div>
 </div>
 
-
-<!--dodelat layout pro telefon -->
+<div class="clearfix"></div>
 @if (Model != null && Model.Count() != 0)
 {
-    <div class="card mb-1">
-        <div class="card-header">Items</div>
+    <div class="card mb-12">
+        <div class="card-header">Položky</div>
         <div class="card-body">
-            <table class="table table-bordered">
+            <table class="tablesaw tablesaw-stack" data-tablesaw-mode="stack">
                 <thead>
                     <tr>
-                        <th scope="col">Obrázek</th>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nazev</th>
-                        <th scope="col">Cena</th>
-                        <th scope="col">Vyrobce</th>
-                        <th scope="col">Mnozstvi</th>
-                        <th scope="col">Akce</th>
-                        <th scope="col">Kategorie</th>
-
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Název</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3">Obrázek</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Cena</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Vyrobce</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Mnozstvi</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="6">Akce</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">Kategorie</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5">Id</th>
 
                     </tr>
                 </thead>
@@ -89,6 +65,7 @@
                     @foreach (Item i in Model)
                     {
                         <tr>
+                            <td class="title">@i.Name</td>
                             <td>
                                 @if (!string.IsNullOrEmpty(i.ImageName))
                                 {
@@ -97,13 +74,13 @@
                                     </a>
                                 }
                             </td>
-                            <td>@i.Id</td>
-                            <td>@i.Name</td>
+
+
                             <td>@i.Price</td>
                             <td>@i.Producer</td>
                             <td>@i.Quantity</td>
                             <td>@i.Category.CategoryName</td>
-
+                            <td>@i.Id</td>
 
                             <td>
                                 @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, new { @class = "btn btn-primary btn-large" })
@@ -126,7 +103,6 @@ else
 
     <h1>Nenašla se žádná data k zobrazení</h1>
 }
-
 
 <div class="clearfix"></div>
 <nav aria-label="Page navigation example">

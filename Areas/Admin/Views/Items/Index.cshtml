@@ -11,72 +11,75 @@
 
 
 </p>
-<a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat položku</a>
 
 
-@*@using (Html.BeginForm("Search", "Items"))
-{
-    <p>
-        Find by name: @Html.TextBox("searchStr")
-        <input type="submit" value="Hledat" />
-    </p>
-}*@
+<div class="container-sm">
+    <a href="@Url.Action("Create","Items")" class="btn btn-primary pull-right">Přidat  položku</a>
+</div>
+
 
 
 <div class="clearfix"></div>
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Obrázek</th>
-            <th>Id</th>
-            <th>Nazev</th>
-            <th>Cena</th>
-            <th>Vyrobce</th>
-            <th>Mnozstvi</th>
-            <th>Akce</th>
+@if (Model != null && Model.Count() != 0)
+{
+    <div class="card mb-12">
+        <div class="card-header">Položky</div>
+        <div class="card-body">
+            <table class="tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+                <thead>
+                    <tr>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Název</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3">Obrázek</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Výrobce</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Cena</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Kategorie</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5">Množství</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="6">Akce</th>
+                    </tr>
+                </thead>
 
-        </tr>
-    </thead>
-
-
-    <tbody>
-        @foreach (Item i in Model)
-        {
-            <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(i.ImageName))
+                <tbody>
+                    @foreach (Item i in Model)
                     {
-                        <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
-                            <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
-                        </a>
+                        <tr>
+                            <td class="title">@i.Name</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(i.ImageName))
+                                {
+                                    <a href="@Url.Content("~/Uploads/Item/" + i.ImageName)">
+                                        <img alt="image" src="@Url.Content("~/Uploads/Item/" + i.ImageName)" />
+                                    </a>
+                                }
+                            </td>
+                            <td>@i.Producer</td>
+                            <td>@i.Price</td>
+                            <td>@i.Category.CategoryName</td>
+                            <td>@i.Quantity</td>
+                            <td>
+                                @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, null)
+                                @Html.ActionLink("Upravit", "Edit", "Items", new { id = i.Id }, null)
+                                @Html.ActionLink("Smazat", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })
+                            </td>
+                        </tr>
+
                     }
-                </td>
-                <td>@i.Id</td>
-                <td>@i.Name</td>
-                <td>@i.Price</td>
-                <td>@i.Producer</td>
-                <td>@i.Quantity</td>
-                <td>
-                    @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, null)
-                    @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)
-                    @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })
-                </td>
-            </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
 
-        }
-
-
-    </tbody>
-
-
-</table>
+    <h1>Nenašla se žádná data k zobrazení</h1>
+}
 
 @if (ViewBag.Pages != null)
 {
     <ul class="pagination">
         @for (int i = 1; i <= ViewBag.Pages; i++)
         {
-        <li class=" page-item @(ViewBag.CurrentPage==i ? "active":"")"><a class="page-link" href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
+            <li class=" page-item @(ViewBag.CurrentPage==i ? "active":"")"><a class="page-link" href="@Url.Action("Index","Items",new {page=i })">@i</a></li>
         }
     </ul>
 
