@@ -45,18 +45,17 @@
     <div class="card mb-12">
         <div class="card-header">Položky</div>
         <div class="card-body">
+            <div class="table-responsive">
             <table class="tablesaw tablesaw-stack" data-tablesaw-mode="stack">
                 <thead>
                     <tr>
                         <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Název</th>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3">Obrázek</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="1">Obrázek</th>
                         <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Cena</th>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Vyrobce</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">Vyrobce</th>
                         <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Mnozstvi</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5">Kategorie</th>
                         <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="6">Akce</th>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">Kategorie</th>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5">Id</th>
-
                     </tr>
                 </thead>
 
@@ -80,7 +79,7 @@
                             <td>@i.Producer</td>
                             <td>@i.Quantity</td>
                             <td>@i.Category.CategoryName</td>
-                            <td>@i.Id</td>
+                            @*<td>@i.Id</td>*@
 
                             <td>
                                 @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, new { @class = "btn btn-primary btn-large" })
@@ -95,6 +94,7 @@
                 </tbody>
 
             </table>
+                </div>
         </div>
     </div>
 }

@@ -261,10 +261,5 @@ namespace Sklad.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Test()
-        {
-            return View();
-        }
-
     }
 }
