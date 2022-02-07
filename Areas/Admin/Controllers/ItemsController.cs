@@ -31,12 +31,15 @@ namespace Sklad.Areas.Admin.Controllers
             ViewBag.Pages = Math.Ceiling((double)totalItems / (double)itemsOnPage);  //vypocet poctu stranek + ceiling= zaokrouhlení nahoru
             ViewBag.Result = GetResult();
             User user = userDao.GetByLogin(User.Identity.Name);
-            ViewBag.user = user.Name;
+            ViewBag.User = user.Name;
+            //ViewBag.Test = itemDao.TestItems3();
+
 
             if (user.Role.Identificator == "customer")
             {
                 return View("Customer", items);
             }
+            //return View(items);
             return View(items);
         }
 
@@ -47,10 +50,11 @@ namespace Sklad.Areas.Admin.Controllers
 
             for (int i = 1; i <= itemCategories.Count; i++)
             {
-                int id = itemCategoryDao.GetById(i).Id;
+                //int id = itemCategoryDao.GetById(i).Id;
                 String a = itemCategoryDao.GetById(i).CategoryName;
                 int b = itemDao.FilterItemsByCategory(i).Count;
-                result.Add(new Result(id, a, b));
+                //result.Add(new Result(id, a, b));
+                result.Add(new Result(a, b));
 
             }
             ViewBag.Result = result;

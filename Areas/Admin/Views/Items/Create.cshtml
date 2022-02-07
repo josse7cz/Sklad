@@ -79,21 +79,18 @@
     <div class="form-group">
         <label class="col-sm-2 ">Obrázek</label>
 
-        <div>
-            <input type="file" name="picture" />
+        <div class="custom-file col-md-10">
+            <input type="file" class="custom-file-input" id="customFile" name="picture">
+            <label class="custom-file-label mx-3 w-50" for="customFile">Choose file</label>
         </div>
     </div>
 
 </div>
-    <div class="btn ">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Přidat položku</button>
-    </div>
+<div class="btn-group ml-3">
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Přidat položku</button>
+    <a href=" @Url.Action("Index", "Items")" class="btn btn-primary btn-lg">Zpět na výpis</a>
+ </div>
 }
-
-
-<div>
-    @Html.ActionLink("Zpět na výpis", "Index")
-</div>
 
 <script src="https://cdn.tiny.cloud/1/9wzwytaqxdg3q5ac46z1wm88c8fbkt7mhwmf42delrzs6nn1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>tinymce.init({ selector: '.formatedtext' });</script>

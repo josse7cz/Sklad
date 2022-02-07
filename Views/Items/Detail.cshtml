@@ -21,6 +21,8 @@
     Popis: @Html.Raw(Model.Description)
 </p>
 
-<div class="btn ">
-    @Html.ActionLink("Zpět", "Index", "Items", new { @class = "btn btn-primary" })
+
+<div class="btn-group">
+    <a class="btn btn-primary" href="@Url.Action("Index","Home")">Více zde</a>
+    <a class="btn btn-primary" href="@Url.Action("Index","Items")">Zpět na přehled</a>
 </div>

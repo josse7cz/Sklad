@@ -38,10 +38,11 @@ namespace Sklad.Controllers
 
             for (int i = 1; i <= itemCategories.Count; i++)
             {
-                int id = itemCategoryDao.GetById(i).Id;
+                //int id = itemCategoryDao.GetById(i).Id;
                 String a = itemCategoryDao.GetById(i).CategoryName;
                 int b = itemDao.FilterItemsByCategory(i).Count;
-                result.Add(new Result(id, a, b));
+              //  result.Add(new Result(id, a, b));
+                result.Add(new Result( a, b));
             }
             ViewBag.Result = result;
 
