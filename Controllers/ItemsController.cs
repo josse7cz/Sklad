@@ -38,15 +38,13 @@ namespace Sklad.Controllers
 
             for (int i = 1; i <= itemCategories.Count; i++)
             {
-                //int id = itemCategoryDao.GetById(i).Id;
+                int id = itemCategoryDao.GetById(i).Id;
                 String a = itemCategoryDao.GetById(i).CategoryName;
                 int b = itemDao.FilterItemsByCategory(i).Count;
-              //  result.Add(new Result(id, a, b));
-                result.Add(new Result( a, b));
+                result.Add(new Result(id, a, b));
             }
             ViewBag.Result = result;
 
-            // ViewBag.Categories = itemCategories;
 
             User user = userDao.GetByLogin(User.Identity.Name);
 
@@ -60,10 +58,6 @@ namespace Sklad.Controllers
 
         public ActionResult Detail(int id)
         {
-
-            //Item i = (from Item item in Items.GetFakeList where item.Id == id select item).FirstOrDefault();
-
-            ItemDao itemDao = new ItemDao();
             Item i = itemDao.GetById(id);
 
 

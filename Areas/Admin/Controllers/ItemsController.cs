@@ -39,27 +39,39 @@ namespace Sklad.Areas.Admin.Controllers
             {
                 return View("Customer", items);
             }
-            //return View(items);
+
             return View(items);
         }
 
-        //pocitani item by category
+        //pocitani item by category osetreno proti kategory id  není postupne
         public IEnumerable<Result> GetResult()
         {
             IList<ItemCategory> itemCategories = itemCategoryDao.GetAll();
+            List<int> Id = new List<int>();
 
-            for (int i = 1; i <= itemCategories.Count; i++)
+            if (itemCategories != null)
             {
-                //int id = itemCategoryDao.GetById(i).Id;
-                String a = itemCategoryDao.GetById(i).CategoryName;
-                int b = itemDao.FilterItemsByCategory(i).Count;
-                //result.Add(new Result(id, a, b));
-                result.Add(new Result(a, b));
+                foreach (ItemCategory i in itemCategories)
 
+                {
+                    Id.Add(i.Id);
+                }
+
+                for (int i = 0; i < itemCategories.Count; i++)
+                {
+
+                    int id = itemCategoryDao.GetById(Id[i]).Id;
+                    String a = itemCategoryDao.GetById(Id[i]).CategoryName;
+                    int b = itemDao.FilterItemsByCategory(Id[i]).Count;
+                    result.Add(new Result(id, a, b));
+
+                }
+                ViewBag.Result = result;
+                return result;
             }
-            ViewBag.Result = result;
-            return result;
+            return null;
         }
+
 
         public ActionResult Search(string searchStr)
         {
@@ -85,15 +97,7 @@ namespace Sklad.Areas.Admin.Controllers
             return View("Customer", items);
         }
 
-        //public int CategoryCount(int id)
-        //{
-        //    int count = 0;
-        //    IList<Item> items = new ItemDao().FilterItemsByCategory(id);
-        //    //ViewBag.Count = new ItemCategoryDao().GetAll();
-        //    count = items.Count;
-        //    ViewBag.Count = count;
-        //    return count;
-        //}
+
         public ActionResult Detail(int id)
         {
             //ItemDao itemDao = new ItemDao();
@@ -149,11 +153,8 @@ namespace Sklad.Areas.Admin.Controllers
                     }
                 }
 
-                //ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
                 ItemCategory itemCategory = itemCategoryDao.GetById(categoryId);
                 item.Category = itemCategory;
-
-                //  ItemDao iDao = new ItemDao();
                 itemDao.Create(item);
 
                 TempData["message-success"] = "Položka byla přidána.";
@@ -185,8 +186,6 @@ namespace Sklad.Areas.Admin.Controllers
         {
             try
             {
-                //ItemDao itemDao = new ItemDao();
-                //ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
                 ItemCategory itemCategory = itemCategoryDao.GetById(categoryId);
                 item.Category = itemCategory;
 
