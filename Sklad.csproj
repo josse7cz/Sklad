@@ -267,6 +267,8 @@
     <Content Include="Areas\Admin\Views\Receipt\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Receipt\Create.cshtml" />
     <Content Include="Scripts\dist\stackonly\tablesaw.stackonly.scss" />
+    <Content Include="Areas\Admin\Views\Items\AddCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Items\CreateCategory.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\css\signin.css" />
     <Content Include="Scripts\css\styles.css" />

@@ -91,10 +91,25 @@ namespace Sklad.Areas.Admin.Controllers
         public ActionResult Category(int id)
         {
             IList<Item> items = new ItemDao().FilterItemsByCategory(id);
-            // ViewBag.Categories = new ItemCategoryDao().GetAll();
             ViewBag.Result = GetResult();
-            // ViewBag.Sum = CategoryCount(id);
             return View("Customer", items);
+        }
+
+        public ActionResult CreateCategory()
+        {
+           return View();
+         
+        }
+
+        public ActionResult AddCategory(ItemCategory category)
+        {
+            if (ModelState.IsValid)
+            {
+
+                itemCategoryDao.Create(category);
+            }
+           
+            return RedirectToAction("Index");
         }
 
 
@@ -186,42 +201,49 @@ namespace Sklad.Areas.Admin.Controllers
         {
             try
             {
+                ItemDao itemDao = new ItemDao();
+                ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
                 ItemCategory itemCategory = itemCategoryDao.GetById(categoryId);
                 item.Category = itemCategory;
 
-                if (picture != null)
-                {
 
-                    if (picture.ContentType == "image/jpeg" || picture.ContentType == "image/png")
+                if (item.ImageName != null && picture != null)
+                {
+                    System.IO.File.Delete(Server.MapPath("~/Uploads/Item/" + item.ImageName));
+
+                    if (picture != null)//kdyz prijde novy obrazek tak ho uprav a uloz do slozky
                     {
 
-                        Image image = Image.FromStream(picture.InputStream);
-
-                        Guid guid = Guid.NewGuid();
-                        string imageName = guid.ToString() + ".jpg";
-
-                        if (image.Width > 200 || image.Height > 200)
-                        {
-                            Image smallImage = ImageHelper.ScaleImage(image, 200, 200);
-                            Bitmap b = new Bitmap(smallImage);
-
-                            b.Save(Server.MapPath("~/Uploads/Item/" + imageName), ImageFormat.Jpeg);//kdyztak chyba tu?
-
-                            smallImage.Dispose();
-                            b.Dispose();
-                            picture.SaveAs(Server.MapPath("~/Uploads/Item/" + picture.FileName));
-                        }
-
-                        else
+                        if (picture.ContentType == "image/jpeg" || picture.ContentType == "image/png")
                         {
 
-                            System.IO.File.Delete(Server.MapPath("~/Uploads/Item/" + imageName));
+                            Image image = Image.FromStream(picture.InputStream);
+                            Guid guid = Guid.NewGuid();
+                            string imageName = guid.ToString() + ".jpg";
 
-                            item.ImageName = imageName;
+                            if (image.Width > 200 || image.Height > 200)
+                            {
+                                Image smallImage = ImageHelper.ScaleImage(image, 200, 200);
+                                Bitmap b = new Bitmap(smallImage);
+
+                                b.Save(Server.MapPath("~/Uploads/Item/" + imageName), ImageFormat.Jpeg);
+                                item.ImageName = imageName;
+                                smallImage.Dispose();
+                                b.Dispose();
+
+                            }
+
+                            else
+                            {
+                                picture.SaveAs(Server.MapPath("~/Uploads/Item/" + picture.FileName));
+                                item.ImageName = picture.FileName;
+                            }
 
                         }
                     }
+
                 }
+
                 itemDao.Update(item);
 
                 TempData["message-success"] = "Položka " + item.Name + " byla editována.";
