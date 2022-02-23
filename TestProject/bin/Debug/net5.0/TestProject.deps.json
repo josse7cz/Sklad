@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "TestProject/1.0.0": {
         "dependencies": {
+          "DataAccess1": "1.0.0",
           "Microsoft.AspNet.Mvc": "5.2.7",
           "Microsoft.NET.Test.Sdk": "16.9.4",
           "Moq": "4.16.1",

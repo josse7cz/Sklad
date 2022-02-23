@@ -33,19 +33,27 @@ namespace Sklad.Controllers
         {
             IList<Item> items = itemDao.GetAll();
             IList<ItemCategory> itemCategories = itemCategoryDao.GetAll();
+            List<int> Id = new List<int>();//Id už nejdou po sobě od nuly, třeba mít jejich seznam pro indexaci
 
-
-
-            for (int i = 1; i <= itemCategories.Count; i++)
+            if (itemCategories != null)
             {
-                int id = itemCategoryDao.GetById(i).Id;
-                String a = itemCategoryDao.GetById(i).CategoryName;
-                int b = itemDao.FilterItemsByCategory(i).Count;
-                result.Add(new Result(id, a, b));
+
+                foreach (ItemCategory i in itemCategories)
+
+                {
+                    Id.Add(i.Id);
+                }
+                for (int i = 1; i < itemCategories.Count; i++)
+                {
+                    int id = itemCategoryDao.GetById(Id[i]).Id;
+                    String a = itemCategoryDao.GetById(Id[i]).CategoryName;
+                    int b = itemDao.FilterItemsByCategory(Id[i]).Count;
+                    result.Add(new Result(id, a, b));
+
+                }
+                ViewBag.Result = result;
+
             }
-            ViewBag.Result = result;
-
-
             User user = userDao.GetByLogin(User.Identity.Name);
 
             if (ViewBag.user != null)

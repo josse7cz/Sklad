@@ -58,7 +58,7 @@
                                 <td>
                                     @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, null)
                                     @Html.ActionLink("Upravit", "Edit", "Items", new { id = i.Id }, null)
-                                    @Html.ActionLink("Smazat", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })
+                                    @Html.ActionLink("Smazat", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Přejete si položku " + i.Name + " opravdu smazat?');" })
                                 </td>
                             </tr>
                         }

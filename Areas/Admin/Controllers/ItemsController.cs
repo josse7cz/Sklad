@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Sklad.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize]//přihlášený uživatel
     public class ItemsController : Controller
     {
         ItemDao itemDao = new ItemDao();
@@ -32,8 +32,6 @@ namespace Sklad.Areas.Admin.Controllers
             ViewBag.Result = GetResult();
             User user = userDao.GetByLogin(User.Identity.Name);
             ViewBag.User = user.Name;
-            //ViewBag.Test = itemDao.TestItems3();
-
 
             if (user.Role.Identificator == "customer")
             {
@@ -64,7 +62,6 @@ namespace Sklad.Areas.Admin.Controllers
                     String a = itemCategoryDao.GetById(Id[i]).CategoryName;
                     int b = itemDao.FilterItemsByCategory(Id[i]).Count;
                     result.Add(new Result(id, a, b));
-
                 }
                 ViewBag.Result = result;
                 return result;
@@ -75,10 +72,7 @@ namespace Sklad.Areas.Admin.Controllers
 
         public ActionResult Search(string searchStr)
         {
-            ItemDao iDao = new ItemDao();
-            IList<Item> items = iDao.SearchItems(searchStr);
-
-            UserDao userDao = new UserDao();
+            IList<Item> items = itemDao.SearchItems(searchStr);
             User user = userDao.GetByLogin(User.Identity.Name);
 
             if (user.Role.Identificator == "customer")
@@ -97,8 +91,8 @@ namespace Sklad.Areas.Admin.Controllers
 
         public ActionResult CreateCategory()
         {
-           return View();
-         
+            return View();
+
         }
 
         public ActionResult AddCategory(ItemCategory category)
@@ -108,7 +102,7 @@ namespace Sklad.Areas.Admin.Controllers
 
                 itemCategoryDao.Create(category);
             }
-           
+
             return RedirectToAction("Index");
         }
 
@@ -188,8 +182,6 @@ namespace Sklad.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
 
-            //ItemDao itemDao = new ItemDao();
-            //  ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
             Item i = itemDao.GetById(id);
             ViewBag.Categories = itemCategoryDao.GetAll();
 
@@ -201,8 +193,7 @@ namespace Sklad.Areas.Admin.Controllers
         {
             try
             {
-                ItemDao itemDao = new ItemDao();
-                ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
+               
                 ItemCategory itemCategory = itemCategoryDao.GetById(categoryId);
                 item.Category = itemCategory;
 
