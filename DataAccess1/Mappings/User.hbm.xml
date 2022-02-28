@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DataAccess1" namespace="DataAccess1.Model">
+
+  <class name="User" table="sell_user" lazy="false"><!--zakazat lazy loading-->
+    <id name="Id" column="user_id">
+      <generator class="native" />
+    </id>
+    <!--1:37:00-->
+    <property name="Name" column="name" />
+    <property name="Surname" column="surname" />
+    <property name="Login" column="login" />
+    <property name="Password" column="password" />
+    <many-to-one name="Role" column= "role_id" foreign-key="role_id" />
+  </class>
+
+</hibernate-mapping>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DataAccess1" namespace="DataAccess1.Model">
+
+  <class name="ItemCategory" table="item_category">
+    <id name="Id" column="category_id">
+      <generator class="native" />
+    </id>
+    <property name="CategoryName" column="categoryname" />
+    <property name="CategoryDescription" column="categorydescription" />
+  </class>
+
+</hibernate-mapping>

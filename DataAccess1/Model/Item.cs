@@ -1,42 +1,48 @@
-﻿using DataAccess.Model;
+﻿using DataAccess1.Interface;
 using DataAccess1.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace DataAccess.Model
+namespace DataAccess1.Model
 {
-    public class Item
+    public class Item : IEntity
+
     {
 
-        public int Id { get; set; }
-        [Required(ErrorMessage ="Název je vyžadován")]//validace dat
-        public string Name { get; set; }
+        public virtual int Id { get; set; }
+        [Required(ErrorMessage = "Název je vyžadován")]//validace dat
+        [DisplayName("Název")]
+        public virtual string Name { get; set; }
+
         [Required(ErrorMessage = "Producent je vyžadován")]
-        public string Producer { get; set; }
+        [DisplayName("Výrobce")]
+        public virtual string Producer { get; set; }
         [Required(ErrorMessage = "Rok je vyžadován")]
-        [Range(2000, 2050, ErrorMessage = "Rozsah není 2000-2050")]
-        public int YearProduct { get; set; }
-
+        [Range(1960, 2022, ErrorMessage = "Rozsah není 1960-2022")]
+        [DisplayName("Rok výroby")]
+        public virtual int YearProduct { get; set; }
+        [DisplayName("Cena")]
         [Required(ErrorMessage = "Cena je vyžadována")]
-        public int Price { get; set; }
-        [Required(ErrorMessage = "Producent je vyžadován")]
-        [Range (1,2000,ErrorMessage = "Rozsah není od 1 do 2000")]
-        public int Quantity { get; set; }
+        public virtual int Price { get; set; }
+        [DisplayName("Množství")]
+        [Required(ErrorMessage = "Množství je vyžadováno")]
+        [Range(1, 2000, ErrorMessage = "Rozsah není od 1 do 2000")]
+        public virtual int Quantity { get; set; }
 
-       [AllowHtml]
-        public string Description { get; set; }
+        [AllowHtml]//pro zachovani HTML je treba pridat system.mvc zavislost
+        [DisplayName("Popisek")]
 
-        public string ImageName { get; set; }
+        public virtual string Description { get; set; }
 
-        public ItemCategory Category { get; set; }
-
-
-
+        public virtual string ImageName { get; set; }
+        [DisplayName("Kategorie")]
+        public virtual ItemCategory Category { get; set; }
 
     }
 }

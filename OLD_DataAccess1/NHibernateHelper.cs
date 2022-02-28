@@ -11,19 +11,16 @@ namespace DataAccess1
 {
     public class NHibernateHelper
     {
-        //Session factory narocny na CPU proto objekt zaklad pro session factory-Singlton
-        //konfigurace NHibernatu
+        //Session objekt zaklad pro session factory-Singlton
         private static ISessionFactory _factory;
 
-        public static ISession Session
+        public static ISession session
         {
             get
             {
                 if (_factory == null)
                 {
                     var cfg = new Configuration();
-
-                    //factory vyhledat cestu ke konfiguracnimu souboru a zbuildit zakladni pripojeni k databazi
                     _factory = cfg.Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "hibernate.cfg.xml")).BuildSessionFactory();
                 }
                 return _factory.OpenSession();

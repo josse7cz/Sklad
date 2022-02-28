@@ -23,14 +23,3 @@ D:\J\C#\DataAccess1\bin\Debug\DataAccess1.dll
 D:\J\C#\DataAccess1\bin\Debug\DataAccess1.pdb
 D:\J\C#\DataAccess1\obj\Debug\DataAccess1.dll
 D:\J\C#\DataAccess1\obj\Debug\DataAccess1.pdb
-D:\J\C#\DataAccess1\bin\Debug\Antlr3.Runtime.dll
-D:\J\C#\DataAccess1\bin\Debug\Iesi.Collections.dll
-D:\J\C#\DataAccess1\bin\Debug\NHibernate.dll
-D:\J\C#\DataAccess1\bin\Debug\Remotion.Linq.dll
-D:\J\C#\DataAccess1\bin\Debug\Remotion.Linq.EagerFetching.dll
-D:\J\C#\DataAccess1\bin\Debug\Antlr3.Runtime.xml
-D:\J\C#\DataAccess1\bin\Debug\Iesi.Collections.xml
-D:\J\C#\DataAccess1\bin\Debug\NHibernate.xml
-D:\J\C#\DataAccess1\bin\Debug\Remotion.Linq.xml
-D:\J\C#\DataAccess1\bin\Debug\Remotion.Linq.EagerFetching.xml
-D:\J\C#\DataAccess1\obj\Debug\DataAccess.csproj.CopyComplete
