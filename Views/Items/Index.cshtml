@@ -3,8 +3,6 @@
 
 @{
     ViewBag.Title = "Index";
-    //Layout = "~/Views/Shared/_LayoutStore.cshtml";+
-    // Layout = "~/Views/Shared/_LayoutWithout.cshtml";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -22,24 +20,28 @@
     {<h1>
             Vítejte!
         </h1>
-        <h4>Níže naleznete položky pro výběr. Pro více možností se prosím přihlašte, případně nás kontaktujte <a href="@Url.Action("Index","Home")">ZDE</a></h4>        
+        <h4>Níže naleznete položky pro výběr. Pro více možností se prosím přihlašte, případně nás kontaktujte <a href="@Url.Action("Index","Home")">ZDE</a></h4>
     }
 </p>
 
 <div class="card mb-12">
     <div class="card-header">Kategorie</div>
     <div class="card-body">
-        <ul class="list-group list-group-horizontal-sm">
+        <div class="table-responsive">
 
-            @if (ViewBag.Result != null)
-            {
-                foreach (Result result in ViewBag.Result)
+
+            <ul class="list-group list-group-horizontal-sm">
+
+                @if (ViewBag.Result != null)
                 {
-                    <li class="list-group-item">@result.Name (@result.Count)</li>
+                    foreach (Result result in ViewBag.Result)
+                    {
+                        <li class="list-group-item">@result.Name (@result.Count)</li>
+                    }
                 }
-            }
 
-        </ul>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -98,6 +100,8 @@ else
 
     <h1>Nenašla se žádná data k zobrazení</h1>
 }
+
+
 
 
 @if (ViewBag.Pages != null)

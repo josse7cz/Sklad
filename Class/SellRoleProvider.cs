@@ -40,14 +40,14 @@ namespace Sklad.Class
         public override string[] GetRolesForUser(string username)//jeden uzivatel jedna role
         {
             UserDao userDao = new UserDao();
-            User user = userDao.GetByLogin(username);//mozna chyba zde
+            User user = userDao.GetByLogin(username);
 
             if (user == null)
             {
                 return new string[] { };
             }
-            
-            return new string[] {user.Role.Identificator};
+
+            return new string[] { user.Role.Identificator };
 
         }
 

@@ -23,7 +23,7 @@ namespace Sklad.Areas.Admin.Controllers
                 FormsAuthentication.SetAuthCookie(login, false);
                 return RedirectToAction("Index", "Items");
             }
-            TempData["message-alert"] = "Nepodarilo se prihlasit.";
+            TempData["message-alert"] = "Nepodařilo se prihlasit.";
             return RedirectToAction("Index", "Login");
 
         }
@@ -32,8 +32,8 @@ namespace Sklad.Areas.Admin.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            //return RedirectToAction("Index", "Login");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { Areas = "" });
+            
 
         }
 

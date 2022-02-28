@@ -8,7 +8,7 @@ using System.Web.Security;
 
 namespace Sklad.Class
 {
-    public class SellMembershipProvider : MembershipProvider//pouzito z duvodu zajmu o to jak to funguje
+    public class SellMembershipProvider : MembershipProvider//pouzito z duvodu zajmu o to jak to funguje implementacne v Identity
     {
         public override bool EnablePasswordRetrieval => throw new NotImplementedException();
 

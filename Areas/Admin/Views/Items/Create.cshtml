@@ -52,9 +52,6 @@
         </div>
     </div>
 
-
-
-
     <div class="form-group">
         @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
 
@@ -76,31 +73,19 @@
 
 
 
-    @*<div class="form-group">
-        <label class="col-sm-2 ">Obrázek</label>
-
-        <div class="custom-file col-md-10">
-            <input type="file" class="custom-file-input" id="customFile" name="picture">
-            <label class="custom-file-label mx-3 w-50" for="customFile">Choose file</label>
-        </div>
-    </div>*@
-
-
-
-
     <div class="form-group">
         <label class="col-sm-2 ">Obrázek</label>
 
         <div class="custom-file col-md-10">
-            <input type="file" class="form-control" id="customFile"  name="picture">
+            <input type="file" class="form-control btn-sm" id="customFile"  name="picture">
         </div>
     </div>
 
 
 </div>
 <div class="btn-group ml-3">
-    <button type="submit" class="btn btn-primary btn-lg btn-block">Přidat položku</button>
-    <a href=" @Url.Action("Index", "Items")" class="btn btn-primary btn-lg">Zpět na výpis</a>
+    <button type="submit" class="btn btn-primary btn-sm btn-block">Přidat položku</button>
+    <a href=" @Url.Action("Index", "Items")" class="btn btn-primary btn-sm">Zpět na výpis</a>
  </div>
 }
 

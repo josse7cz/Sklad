@@ -43,7 +43,7 @@ namespace Sklad.Controllers
                 {
                     Id.Add(i.Id);
                 }
-                for (int i = 1; i < itemCategories.Count; i++)
+                for (int i = 0; i < itemCategories.Count; i++)
                 {
                     int id = itemCategoryDao.GetById(Id[i]).Id;
                     String a = itemCategoryDao.GetById(Id[i]).CategoryName;

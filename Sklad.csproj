@@ -136,7 +136,6 @@
     <Compile Include="Areas\Admin\Controllers\ItemsController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ReceiptController.cs" />
     <Compile Include="Class\ImageHelper.cs" />
     <Compile Include="Class\SellMembershipProvider.cs" />
     <Compile Include="Class\SellRoleProvider.cs" />
@@ -185,7 +184,6 @@
     <Content Include="Areas\Admin\Views\Items\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Items\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Items\Detail.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_LayoutEmpty.cshtml" />
     <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Items\Customer.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutIndex.cshtml" />
@@ -264,10 +262,7 @@
     <Content Include="Scripts\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Scripts\icheck-bootstrap\LICENSE" />
     <Content Include="Scripts\dist\js\.eslintrc.json" />
-    <Content Include="Areas\Admin\Views\Receipt\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Receipt\Create.cshtml" />
     <Content Include="Scripts\dist\stackonly\tablesaw.stackonly.scss" />
-    <Content Include="Areas\Admin\Views\Items\AddCategory.cshtml" />
     <Content Include="Areas\Admin\Views\Items\CreateCategory.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\css\signin.css" />

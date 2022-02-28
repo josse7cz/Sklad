@@ -16,28 +16,28 @@
 
 @using (Html.BeginForm("Search", "Items"))
 {
-    <p>
-        Vyhledat podle názvu: @Html.TextBox("searchStr")
-        <input type="submit" value="Hledat" />
-    </p>
+<p>
+    Vyhledat podle názvu: @Html.TextBox("searchStr")
+    <button type="submit" class="btn btn-primary btn-sm">Hledat</button>
+    <a class="btn btn-primary btn-sm" href="@Url.Action("Index", "Items")">Zpět na přehled</a>
+</p>
 }
 
 <div class="card mb-12">
     <div class="card-header">Kategorie</div>
     <div class="card-body">
-        <ul class="list-group list-group-horizontal-sm">
+          <ul class="list-group list-group-horizontal-sm">
 
-            @if (ViewBag.Result != null)
-            {
-                foreach (Result result in ViewBag.Result)
+                @if (ViewBag.Result != null)
                 {
+                    foreach (Result result in ViewBag.Result)
+                    {
                     <li class="list-group-item"><a href="@Url.Action("Category", "Items", new { id = result.Id })" style="text-decoration:none">@result.Name (@result.Count)</a></li>
+                    }
+                    <li class="list-group-item"><a href="@Url.Action("Index", "Items")" style="text-decoration:none">Zobraz vše</a></li>
                 }
-                <li class="list-group-item"><a href="@Url.Action("Index", "Items")" style="text-decoration:none">Zobraz vše</a></li>
-            }
-
-        </ul>
-    </div>
+            </ul>
+      </div>
 </div>
 
 <div class="clearfix"></div>
@@ -83,7 +83,7 @@
                                 @*<td>@i.Id</td>*@
 
                                 <td>
-                                    @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, new { @class = "btn btn-primary btn-large" })
+                                    @Html.ActionLink("Detail", "Detail", "Items", new { id = i.Id }, new { @class = "btn btn-primary btn-large mb-2" })
                                     @* @Html.ActionLink("Edit", "Edit", "Items", new { id = i.Id }, null)*@
                                     @* @Html.ActionLink("Delete", "Delete", "Items", new { id = i.Id }, new { onclick = "return confirm('Opravdu smazat?" + i.Name + "');" })*@
                                 </td>

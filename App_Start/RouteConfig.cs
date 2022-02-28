@@ -17,8 +17,9 @@ namespace Sklad
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces:new []{"Sklad.Controllers"}
-            );
+                namespaces: new[] { "Sklad.Controllers" }
+          );
+
         }
     }
 }

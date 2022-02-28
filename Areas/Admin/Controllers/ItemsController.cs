@@ -13,25 +13,33 @@ using System.Web.Mvc;
 
 namespace Sklad.Areas.Admin.Controllers
 {
-    [Authorize]//přihlášený uživatel
+    [Authorize]//vstup pouze přihlášený uživatel
     public class ItemsController : Controller
     {
         ItemDao itemDao = new ItemDao();
         ItemCategoryDao itemCategoryDao = new ItemCategoryDao();
         List<Result> result = new List<Result>();
         UserDao userDao = new UserDao();
-        // GET: Polozky
+        // Polozky
         public ActionResult Index(int? page)
         {
-            int itemsOnPage = 5;//pocet polozeek na strance
+            int itemsOnPage = 4;//pocet polozeek na strance
             int pg = page.HasValue ? page.Value : 1;//pokud prijde hodnota bude pouzita a kdyz ne nastavi se na 1; TERNARNI DOTAZ
             int totalItems;//celokvy pocet polozek
 
             IList<Item> items = itemDao.GetPagedItems(itemsOnPage, pg, out totalItems);
             ViewBag.Pages = Math.Ceiling((double)totalItems / (double)itemsOnPage);  //vypocet poctu stranek + ceiling= zaokrouhlení nahoru
-            ViewBag.Result = GetResult();
-            User user = userDao.GetByLogin(User.Identity.Name);
-            ViewBag.User = user.Name;
+            ViewBag.Result = GetResult();//vrací počet items by category
+            User user = userDao.GetByLogin(User.Identity.Name);//aktuálně přihlášený uživatel
+
+            if (user.Name != null)
+            {
+                ViewBag.User = user.Name;
+
+            }
+            else
+                user.Name = "Nepřihlášený uživatel";
+
 
             if (user.Role.Identificator == "customer")
             {
@@ -41,7 +49,7 @@ namespace Sklad.Areas.Admin.Controllers
             return View(items);
         }
 
-        //pocitani item by category osetreno proti kategory id  není postupne
+        //pocitani item by category osetreno proti pripadu, že kategory id  není poporade
         public IEnumerable<Result> GetResult()
         {
             IList<ItemCategory> itemCategories = itemCategoryDao.GetAll();
@@ -49,28 +57,28 @@ namespace Sklad.Areas.Admin.Controllers
 
             if (itemCategories != null)
             {
-                foreach (ItemCategory i in itemCategories)
+                foreach (ItemCategory i in itemCategories)//naplnění listu Id intovými Idečkami
 
                 {
                     Id.Add(i.Id);
                 }
 
-                for (int i = 0; i < itemCategories.Count; i++)
+                for (int i = 0; i < itemCategories.Count; i++)//vypočet kusů po categoriích
                 {
-
                     int id = itemCategoryDao.GetById(Id[i]).Id;
                     String a = itemCategoryDao.GetById(Id[i]).CategoryName;
                     int b = itemDao.FilterItemsByCategory(Id[i]).Count;
                     result.Add(new Result(id, a, b));
                 }
                 ViewBag.Result = result;
+
                 return result;
             }
             return null;
         }
 
 
-        public ActionResult Search(string searchStr)
+        public ActionResult Search(string searchStr)//vyhledá položky dle zadaného stringu, používá metodu (SearchString) v ItemDao
         {
             IList<Item> items = itemDao.SearchItems(searchStr);
             User user = userDao.GetByLogin(User.Identity.Name);
@@ -82,20 +90,19 @@ namespace Sklad.Areas.Admin.Controllers
             return View(items);
         }
 
-        public ActionResult Category(int id)
+        public ActionResult Category(int id)//vraci pohled s kategorií dle kategory id 
         {
             IList<Item> items = new ItemDao().FilterItemsByCategory(id);
             ViewBag.Result = GetResult();
             return View("Customer", items);
         }
 
-        public ActionResult CreateCategory()
+        public ActionResult CreateCategory()//pohled pro vytvoření kategorie
         {
             return View();
-
         }
 
-        public ActionResult AddCategory(ItemCategory category)
+        public ActionResult AddCategory(ItemCategory category) //metoda pro přidání kategorie používá add v itemcategorydao
         {
             if (ModelState.IsValid)
             {
@@ -107,9 +114,8 @@ namespace Sklad.Areas.Admin.Controllers
         }
 
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int id)//spusti pohled pro detail položky
         {
-            //ItemDao itemDao = new ItemDao();
             Item i = itemDao.GetById(id);
 
             if (i.Name != null)
@@ -119,7 +125,7 @@ namespace Sklad.Areas.Admin.Controllers
             return View();
         }
 
-        [Authorize(Roles = "seller, admin")]
+        [Authorize(Roles = "seller, admin")]//metoda pouze pro prodavace a admina, pohled pro vytvoření nové položky
         public ActionResult Create()
         {
             IList<ItemCategory> categories = itemCategoryDao.GetAll();
@@ -127,14 +133,14 @@ namespace Sklad.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost]//metoda pro pridani polozky do DB
         public ActionResult Add(Item item, HttpPostedFileBase picture, int categoryId)
         {
 
             if (ModelState.IsValid)
             {
 
-                if (picture != null)
+                if (picture != null)//pokud byl přiložen obrázek
                 {
 
                     if (picture.ContentType == "image/jpeg" || picture.ContentType == "image/png")
@@ -193,7 +199,7 @@ namespace Sklad.Areas.Admin.Controllers
         {
             try
             {
-               
+
                 ItemCategory itemCategory = itemCategoryDao.GetById(categoryId);
                 item.Category = itemCategory;
 
@@ -256,7 +262,7 @@ namespace Sklad.Areas.Admin.Controllers
 
             try
             {
-                // ItemDao itemDao = new ItemDao();
+
                 Item item = itemDao.GetById(id);
 
                 if (item.ImageName != null)

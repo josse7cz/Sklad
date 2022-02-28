@@ -5,18 +5,13 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <p>
-
     <h1>Vítejte: @ViewBag.user</h1>
-
-
-
 </p>
 
 
 <div class="container-sm p-0 pb-sm-4">
-    <a href="@Url.Action("Create","Items")" class="btn btn-primary">Přidat  položku</a>
-    <a href="@Url.Action("CreateCategory","Items")" class="btn btn-primary">Přidat  kategorii</a>
-
+    <a href="@Url.Action("Create","Items")" class="btn btn-primary btn-group-sm">Přidat  položku</a>
+    <a href="@Url.Action("CreateCategory","Items")" class="btn btn-primary btn-group-sm">Přidat  kategorii</a>
 </div>
 
 <div class="clearfix"></div>

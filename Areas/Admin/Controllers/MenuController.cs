@@ -12,14 +12,14 @@ namespace Sklad.Areas.Admin.Controllers
     public class MenuController : Controller
     {
         // GET: Admin/Menu
-        [ChildActionOnly]//muze byt zavolano pouze zevnitr aplikace (ne prews prikazovy radek)
+        [ChildActionOnly]//muze byt zavolano pouze zevnitr aplikace (ne pres prikazovy radek)
         public ActionResult Index()
         {
 
             UserDao userDao = new UserDao();
             User user = userDao.GetByLogin(User.Identity.Name);
 
-             
+
 
             return View(user);
         }
