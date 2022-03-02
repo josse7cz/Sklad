@@ -118,6 +118,7 @@ namespace Sklad.Areas.Admin.Controllers
         {
             Item i = itemDao.GetById(id);
 
+
             if (i.Name != null)
             {
                 return View(i);

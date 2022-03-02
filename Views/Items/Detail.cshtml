@@ -21,8 +21,8 @@
     Popis: @Html.Raw(Model.Description)
 </p>
 
-
 <div class="btn-group">
     <a class="btn btn-primary" href="@Url.Action("Index","Home")">Více zde</a>
     <a class="btn btn-primary" href="@Url.Action("Index","Items")">Zpět na přehled</a>
+    <a class="btn btn-primary" href="@Url.Action("ReservationView","Items", new { id = @Model.Id }, null)">Rezervuj</a>
 </div>

@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using DataAccess1.Dao;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Net.Mail;
 
 namespace Sklad.Controllers
 {
@@ -68,6 +70,60 @@ namespace Sklad.Controllers
         {
             Item i = itemDao.GetById(id);
 
+
+            if (i.Name != null)
+            {
+                return View(i);
+            }
+
+            var data = _itemsService.GetMyItems();
+
+            return View(data);
+        }
+        public ActionResult ReservationView(int id)
+        {
+
+            Item i = itemDao.GetById(id);
+            ViewBag.Name = i.Name;
+            ViewBag.Id = i.Id;
+            return View();
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Reservation(ReservationModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var mail = new MailMessage();
+                //mail.To.Add(new MailAddress(model.SenderEmail));
+                mail.To.Add("esell@post.cz");
+                mail.Subject = "Dotaz z kontaktního formuláře aplikace na vozidlo";
+                mail.Body = string.Format("<p>Email Od: {0} ({1})</p><p>Zpráva:</p><p>{2}</p>", model.SenderName, model.SenderEmail, model.Message);
+                mail.IsBodyHtml = true;
+                using (var smtp = new SmtpClient())
+                {
+                    await smtp.SendMailAsync(mail);
+                    return RedirectToAction("SuccessMessage");
+                }
+            }
+            return View();
+        }
+
+        public ActionResult SuccessMessage()
+        {
+            return View();
+        }
+
+
+
+
+
+        public ActionResult Reservation(int id)
+        {
+            Item i = itemDao.GetById(id);
+            ViewBag.Id = id;
 
             if (i.Name != null)
             {

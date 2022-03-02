@@ -1,0 +1,46 @@
+﻿@model DataAccess1.Model.ReservationModel
+
+@{
+    ViewBag.Title = "Reservuj";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Reservation", "Items", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "contact-form", role = "form" }))
+{
+
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+        @Html.LabelFor(m => m.SenderName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.SenderName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SenderName)
+        </div>
+    </div>
+    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+        @Html.LabelFor(m => m.SenderEmail, new { @class = "col-md-2 control-label" })
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.SenderEmail, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SenderEmail)
+        </div>
+    </div>
+    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+        @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
+        <div class="col-md-12">
+            @Html.TextArea("Message", "Dobrý den, prosím o rezervaci vozidla " + (string)ViewBag.Name + " na den: ZDE VYPLNTE DATUM", new { @style = "color:black", @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Message)
+        </div>
+    </div>
+
+    <div class="form-group floating-label-form-group controls mb-0 pb-2 pl-3">
+
+        <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit" >Odeslat</button>
+    </div>
+}
+
+
+<script src="https://cdn.tiny.cloud/1/9wzwytaqxdg3q5ac46z1wm88c8fbkt7mhwmf42delrzs6nn1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>tinymce.init({ selector: '.formatedtext' });</script>
+
