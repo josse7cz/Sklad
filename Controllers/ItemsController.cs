@@ -85,7 +85,6 @@ namespace Sklad.Controllers
 
             Item i = itemDao.GetById(id);
             ViewBag.Name = i.Name;
-            ViewBag.Id = i.Id;
             return View();
 
         }
